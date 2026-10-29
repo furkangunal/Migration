@@ -1,0 +1,1208 @@
+<meta name="dash-one-writer">
+<style>
+  /* Mavi-beyaz tek görünüm: beyaz paneller, lacivert metin, mavi vurgu; göç veren tarafı için tek sıcak ton */
+  #dash-root { --dash-gutter: 0; }
+  .gp {
+    --gp-bg: #f3f7fd; --gp-panel: #ffffff; --gp-ink: #0c2340; --gp-muted: #5b6b84;
+    --gp-line: #d8e2f0; --gp-grid: #edf2f9; --gp-blue: #1f5fbf; --gp-deep: #0b3a82;
+    --gp-soft: #e6eefb; --gp-warm: #cf5a33; --gp-band: #0b3a82;
+    color-scheme: light;
+    background: var(--gp-bg); color: var(--gp-ink);
+    font-family: var(--font-anthropic-sans);
+    font-size: var(--cds-font-size-body);
+    padding-block: 0 var(--cds-pad-xl);
+    min-height: 100%;
+  }
+  .gp-wrap { max-width: 1280px; margin-inline: auto; padding-inline: max(16px, 2.5vw); }
+  .gp-head { background: var(--gp-band); color: #ffffff; padding-block: var(--cds-pad-xl) var(--cds-pad-lg); }
+  .gp-eyebrow { margin: 0; font-size: var(--cds-font-size-caption); letter-spacing: .08em; text-transform: uppercase; color: #b9d0f3; }
+  .gp-head h1 { margin: var(--cds-gap-xs) 0 var(--cds-gap-sm); font-family: var(--font-anthropic-serif); font-weight: 400; font-size: clamp(1.8rem, 3.4vw, 2.6rem); text-wrap: balance; }
+  .gp-lede { margin: 0; max-width: 70ch; line-height: 1.55; color: #e3ecfa; }
+  .gp .gp-lede b { color: #ffffff; font-weight: 600; }
+  .gp-tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--gp-panel); border-bottom: 1px solid var(--gp-line); }
+  .gp-tabs .gp-wrap { display: flex; gap: var(--cds-gap-xs); overflow-x: auto; scrollbar-width: none; }
+  .gp-tab { appearance: none; border: 0; background: none; font: inherit; color: var(--gp-muted); padding: 14px 14px 12px; border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap; }
+  .gp-tab:hover { color: var(--gp-deep); }
+  .gp-tab[aria-selected="true"] { color: var(--gp-deep); border-bottom-color: var(--gp-blue); font-weight: 600; }
+  .gp-tab:focus-visible, .gp button:focus-visible, .gp select:focus-visible, .gp input:focus-visible { outline: 2px solid var(--gp-blue); outline-offset: 2px; }
+  .gp-page { display: grid; gap: var(--cds-gap-lg); padding-block: var(--cds-pad-lg) 0; }
+  .gp-intro { max-width: 78ch; line-height: 1.6; color: var(--gp-muted); margin: 0; }
+  .gp-intro b, .gp-note b, .gp-steps b { color: var(--gp-ink); font-weight: 600; }
+  .gp-h2 { margin: var(--cds-gap-md) 0 0; font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); color: var(--gp-deep); }
+  .gp-grid { display: grid; gap: var(--cds-gap-md); grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr)); }
+  .gp-grid.gp-wide { grid-template-columns: 1fr; }
+  .gp-card { background: var(--gp-panel); border: 1px solid var(--gp-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); min-width: 0; display: grid; gap: var(--cds-gap-sm); align-content: start; }
+  .gp-card h3 { margin: 0; font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); color: var(--gp-ink); }
+  .gp-note { margin: 0; color: var(--gp-muted); font-size: var(--cds-font-size-caption); line-height: 1.5; }
+  .gp-kpis { display: grid; gap: var(--cds-gap-md); grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); }
+  .gp-kpi { background: var(--gp-panel); border: 1px solid var(--gp-line); border-radius: var(--cds-radius); padding: var(--cds-pad-md) var(--cds-pad-lg); display: grid; gap: 4px; align-content: start; }
+  .gp-kpi-label { font-size: var(--cds-font-size-caption); color: var(--gp-muted); letter-spacing: .04em; text-transform: uppercase; }
+  .gp-kpi-value { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); color: var(--gp-deep); font-variant-numeric: tabular-nums; line-height: 1.15; }
+  .gp-kpi-sub { font-size: var(--cds-font-size-caption); color: var(--gp-muted); }
+  .gp-kpi-sub b { color: var(--gp-ink); font-weight: 600; }
+  .gp-chart { position: relative; min-width: 0; width: 100%; }
+  .gp-chart svg { display: block; overflow: visible; }
+  .gp-h260 { min-height: 260px; } .gp-h300 { min-height: 300px; } .gp-h340 { min-height: 340px; } .gp-h420 { min-height: 420px; } .gp-map { min-height: 200px; }
+  .gp-axis text { fill: var(--gp-muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+  .gp-axis path, .gp-axis line { stroke: var(--gp-line); }
+  .gp-gridl line { stroke: var(--gp-grid); }
+  .gp-gridl path { display: none; }
+  .gp-tip { position: absolute; pointer-events: none; z-index: 4; background: #ffffff; color: var(--gp-ink); border: 1px solid var(--gp-line); border-radius: var(--cds-radius); box-shadow: 0 6px 20px rgba(11, 58, 130, .14); padding: 6px 10px; font-size: var(--cds-font-size-caption); line-height: 1.45; max-width: 260px; font-variant-numeric: tabular-nums; }
+  .gp-tip .t { color: var(--gp-muted); }
+  .gp-tip .r { display: flex; gap: 6px; align-items: center; }
+  .gp-tip .s { width: 8px; height: 8px; border-radius: 2px; flex: none; }
+  .gp-tip .v { margin-left: auto; padding-left: 10px; font-weight: 600; }
+  .gp-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: var(--cds-font-size-caption); color: var(--gp-muted); }
+  .gp-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .gp-legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+  .gp-legend b { color: var(--gp-ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .gp-chip { appearance: none; font: inherit; font-size: var(--cds-font-size-caption); display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--gp-line); background: var(--gp-panel); color: var(--gp-ink); border-radius: 999px; padding: 3px 10px; cursor: pointer; }
+  .gp-chip i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+  .gp-chip[aria-pressed="false"] { opacity: .45; }
+  .gp-controls { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cds-gap-sm) var(--cds-gap-md); }
+  .gp-btn { appearance: none; font: inherit; border: 1px solid var(--gp-blue); background: var(--gp-blue); color: #ffffff; border-radius: var(--cds-radius); padding: 6px 14px; cursor: pointer; }
+  .gp-btn.gp-ghost { background: var(--gp-panel); color: var(--gp-deep); border-color: var(--gp-line); }
+  .gp-btn:hover { filter: brightness(1.08); }
+  .gp-year { font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-title); color: var(--gp-deep); font-variant-numeric: tabular-nums; min-width: 4ch; }
+  .gp-range { flex: 1 1 14rem; accent-color: var(--gp-blue); min-width: 0; }
+  .gp select, .gp input[type="search"] { font: inherit; color: var(--gp-ink); background: var(--gp-panel); border: 1px solid var(--gp-line); border-radius: var(--cds-radius); padding: 6px 10px; max-width: 100%; }
+  .gp-ramp { display: grid; grid-template-columns: auto minmax(0, 18rem) auto; align-items: center; gap: 8px; font-size: var(--cds-font-size-caption); color: var(--gp-muted); font-variant-numeric: tabular-nums; }
+  .gp-ramp i { height: 10px; border-radius: 3px; background: linear-gradient(90deg, #cf5a33, #f3c2ad 35%, #ffffff 50%, #a9c6ef 65%, #0b3a82); border: 1px solid var(--gp-line); }
+  .gp-tablebox { max-height: 520px; overflow: auto; border: 1px solid var(--gp-line); border-radius: var(--cds-radius); }
+  .gp-table { width: 100%; border-collapse: collapse; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+  .gp-table th { position: sticky; top: 0; background: var(--gp-soft); text-align: left; font-weight: 600; color: var(--gp-deep); padding: 0; white-space: nowrap; }
+  .gp-table th button { appearance: none; border: 0; background: none; font: inherit; color: inherit; padding: 8px 10px; width: 100%; text-align: inherit; cursor: pointer; }
+  .gp-table th.gp-num, .gp-table td.gp-num { text-align: right; }
+  .gp-table td { padding: 7px 10px; border-top: 1px solid var(--gp-grid); white-space: nowrap; }
+  .gp-table tbody tr { cursor: pointer; }
+  .gp-table tbody tr:hover td { background: var(--gp-soft); }
+  .gp-pill { display: inline-flex; align-items: center; gap: 6px; }
+  .gp-pill i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .gp-steps { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; line-height: 1.5; color: var(--gp-muted); max-width: 80ch; }
+  .gp-facts { display: grid; gap: var(--cds-gap-sm); grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); }
+  .gp-fact { border-left: 3px solid var(--gp-blue); padding: 2px 0 2px 10px; display: grid; gap: 2px; }
+  .gp-fact span { font-size: var(--cds-font-size-caption); color: var(--gp-muted); }
+  .gp-fact b { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-heading); color: var(--gp-deep); font-variant-numeric: tabular-nums; }
+  .gp-two { display: grid; gap: var(--cds-gap-md); grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); }
+  .gp-sub { margin: 0; font-size: var(--cds-font-size-body); font-weight: 600; color: var(--gp-deep); }
+  .gp-fail { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: inherit; color: var(--gp-muted); font-size: var(--cds-font-size-caption); }
+  .gp-fail i { width: .375rem; height: .375rem; border-radius: 50%; background: var(--color-bad); }
+  .gp [data-dash-source-state=empty] { color: transparent; }
+  .gp [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+  .gp-corr { font-family: var(--font-anthropic-serif); font-size: var(--cds-font-size-title); color: var(--gp-deep); }
+  .gp-rank { display: grid; gap: 4px; font-size: var(--cds-font-size-caption); }
+  @media (prefers-reduced-motion: no-preference) {
+    .gp-page:not([hidden]) { animation: gp-in var(--cds-dur-slow) var(--cds-ease-out); }
+    @keyframes gp-in { from { opacity: .4; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  }
+</style>
+
+<div class="gp">
+  <header class="gp-head">
+    <div class="gp-wrap">
+      <p class="gp-eyebrow">Dünya Bankası · net göç · 1962–2012 · 5 yıllık dönemler</p>
+      <h1 id="baslik">Küresel Göç Paneli</h1>
+      <p class="gp-lede">1962–2012 toplamında en çok göç alan ülke <b data-draw="v" data-source="ozet" data-row="0" data-field="en_cok_alan">—</b> (<b data-draw="v" data-source="ozet" data-row="0" data-field="en_cok_alan_toplam" data-fmt="scompact">—</b> kişi), en çok göç veren <b data-draw="v" data-source="ozet" data-row="0" data-field="en_cok_veren">—</b> (<b data-draw="v" data-source="ozet" data-row="0" data-field="en_cok_veren_toplam" data-fmt="scompact">—</b> kişi). <b data-draw="v" data-source="ozet" data-row="0" data-field="ulke_sayisi">—</b> ülkenin <b data-draw="v" data-source="sinif_sayilari" data-where="rule_class=Sürekli göç veren" data-field="n">—</b> tanesi dönemlerin neredeyse tamamında göç verdi; yalnızca <b data-draw="v" data-source="sinif_sayilari" data-where="rule_class=Sürekli göç alan" data-field="n">—</b> ülke sürekli göç aldı.</p>
+    </div>
+  </header>
+
+  <nav class="gp-tabs" aria-label="Analizler">
+    <div class="gp-wrap" role="tablist">
+      <button class="gp-tab" role="tab" data-tab="genel" aria-selected="true">Genel bakış</button>
+      <button class="gp-tab" role="tab" data-tab="dagilim" aria-selected="false">Dağılım ve istatistik</button>
+      <button class="gp-tab" role="tab" data-tab="kumeleme" aria-selected="false">K-means kümeleme</button>
+      <button class="gp-tab" role="tab" data-tab="kurallar" aria-selected="false">Kural tabanlı sınıflar</button>
+      <button class="gp-tab" role="tab" data-tab="yuzyillar" aria-selected="false">20. ve 21. yüzyıl</button>
+      <button class="gp-tab" role="tab" data-tab="ulkeler" aria-selected="false">Ülke karşılaştırma</button>
+    </div>
+  </nav>
+
+  <div class="gp-wrap">
+
+    <!-- ============ GENEL BAKIŞ ============ -->
+    <section class="gp-page" id="genel" data-page="genel" role="tabpanel">
+      <div class="gp-kpis">
+        <div class="gp-kpi">
+          <span class="gp-kpi-label">Analizdeki ülke</span>
+          <span class="gp-kpi-value" data-draw="v" data-source="ozet" data-row="0" data-field="ulke_sayisi">—</span>
+          <span class="gp-kpi-sub"><b data-draw="sabit" data-key="donem">—</b> dönem × 5 yıl, bölge toplamları hariç</span>
+        </div>
+        <div class="gp-kpi">
+          <span class="gp-kpi-label">En çok göç alan</span>
+          <span class="gp-kpi-value" data-draw="v" data-source="ozet" data-row="0" data-field="en_cok_alan_toplam" data-fmt="scompact">—</span>
+          <span class="gp-kpi-sub"><b data-draw="v" data-source="ozet" data-row="0" data-field="en_cok_alan">—</b> · 1962–2012 toplamı</span>
+        </div>
+        <div class="gp-kpi">
+          <span class="gp-kpi-label">En çok göç veren</span>
+          <span class="gp-kpi-value" data-draw="v" data-source="ozet" data-row="0" data-field="en_cok_veren_toplam" data-fmt="scompact">—</span>
+          <span class="gp-kpi-sub"><b data-draw="v" data-source="ozet" data-row="0" data-field="en_cok_veren">—</b> · 1962–2012 toplamı</span>
+        </div>
+        <div class="gp-kpi">
+          <span class="gp-kpi-label">Türkiye</span>
+          <span class="gp-kpi-value" data-draw="v" data-source="ulkeler" data-where="country=Turkey" data-field="total" data-fmt="scompact">—</span>
+          <span class="gp-kpi-sub">Sınıf: <b data-draw="v" data-source="ulkeler" data-where="country=Turkey" data-field="rule_class">—</b></span>
+        </div>
+      </div>
+
+      <div class="gp-card" id="harita-kart">
+        <h3>Yıllara göre net göç haritası</h3>
+        <p class="gp-note">Her ülkenin seçilen 5 yıllık dönemdeki net göçü. Mavi göç alan, turuncu göç veren ülke. Bir ülkeye tıklayınca Ülke karşılaştırma sekmesinde açılır.</p>
+        <div class="gp-controls">
+          <button class="gp-btn gp-play" type="button"><span class="gp-play-on">▶ Oynat</span><span class="gp-play-off" hidden>❚❚ Durdur</span></button>
+          <span class="gp-year" data-draw="yil">—</span>
+          <input class="gp-range" id="yil-secici" type="range" min="1962" max="2012" step="5" value="2012" aria-label="Dönem">
+        </div>
+        <div class="gp-chart gp-map dash-skeleton" id="harita-yil" data-draw="harita_yil" data-source="dunya_haritasi ulke_serileri"></div>
+        <div class="gp-ramp"><span data-draw="sabit" data-key="limit_neg">—</span><i></i><span data-draw="sabit" data-key="limit_pos">—</span></div>
+      </div>
+
+      <div class="gp-grid">
+        <div class="gp-card" id="bolgeler-kart">
+          <h3>Bölgelere göre net göç</h3>
+          <p class="gp-note">Dünya Bankası bölge toplamları, dönem başına kişi. Bir bölgeyi gizlemek için etiketine tıklayın.</p>
+          <div class="gp-legend" data-draw="bolge_lejant" data-source="bolge_serileri"></div>
+          <div class="gp-chart gp-h300 dash-skeleton" id="bolgeler" data-draw="bolgeler" data-source="bolge_serileri"></div>
+        </div>
+        <div class="gp-card" id="uclar-kart">
+          <h3>En çok göç alan ve veren 10 ülke</h3>
+          <p class="gp-note">1962–2012 boyunca 11 dönemin toplam net göçü.</p>
+          <div class="gp-chart gp-h420 dash-skeleton" id="uclar" data-draw="uclar" data-source="uclar"></div>
+        </div>
+      </div>
+
+      <div class="gp-card" id="isaret-kart">
+        <h3>Her dönemde göç alan ve veren ülke sayısı</h3>
+        <p class="gp-note">Net göçü sıfırdan büyük ülkeler mavi, küçük ülkeler turuncu.</p>
+        <div class="gp-legend"><span><i style="background:#1f5fbf"></i>Göç alan</span><span><i style="background:#cf5a33"></i>Göç veren</span><span><i style="background:#c6d2e4"></i>Sıfır</span></div>
+        <div class="gp-chart gp-h260 dash-skeleton" id="isaret" data-draw="isaret" data-source="isaret"></div>
+      </div>
+    </section>
+
+    <!-- ============ DAĞILIM ============ -->
+    <section class="gp-page" id="dagilim" data-page="dagilim" role="tabpanel" hidden>
+      <p class="gp-intro">Tüm ülke-dönem gözlemleri (ülke × 11 dönem) birlikte. Net göç birkaç büyük ülkede milyonlara çıkarken çoğu ülkede binler düzeyinde kalıyor; dağılım bu yüzden aşırı çarpık ve sivri.</p>
+      <div class="gp-card">
+        <div class="gp-facts">
+          <div class="gp-fact"><span>Gözlem</span><b data-draw="v" data-source="istatistik" data-row="0" data-field="gozlem">—</b></div>
+          <div class="gp-fact"><span>Aykırı gözlem (IQR × 1,5)</span><b data-draw="v" data-source="istatistik" data-row="0" data-field="aykiri">—</b></div>
+          <div class="gp-fact"><span>Aykırı payı</span><b data-draw="v" data-source="istatistik" data-row="0" data-field="aykiri_pay" data-fmt="pct">—</b></div>
+          <div class="gp-fact"><span>Çarpıklık</span><b data-draw="v" data-source="istatistik" data-row="0" data-field="carpiklik" data-fmt="dec2">—</b></div>
+          <div class="gp-fact"><span>Basıklık (fazlalık)</span><b data-draw="v" data-source="istatistik" data-row="0" data-field="basiklik" data-fmt="dec1">—</b></div>
+        </div>
+      </div>
+      <div class="gp-grid">
+        <div class="gp-card" id="hist-kart">
+          <h3>Net göç dağılımı</h3>
+          <p class="gp-note">İşaretli log10 ölçeği: sign(x) · log10(|x| + 1). Sağda göç alan, solda göç veren gözlemler; 6 ≈ bir milyon kişi.</p>
+          <div class="gp-chart gp-h300 dash-skeleton" id="hist" data-draw="hist" data-source="histogram"></div>
+        </div>
+        <div class="gp-card" id="kutu-kart">
+          <h3>Dönemlere göre ülke net göçü</h3>
+          <p class="gp-note">Kutu çeyrekleri, çizgi medyanı gösterir; noktalar o dönemin aykırı ülkeleri. Dikey eksen simetrik logaritmik.</p>
+          <div class="gp-chart gp-h300 dash-skeleton" id="kutu" data-draw="kutu" data-source="kutu kutu_aykiri"></div>
+        </div>
+      </div>
+      <div class="gp-card" id="korelasyon-kart">
+        <h3>Dönemler arası korelasyon</h3>
+        <p class="gp-note">Ülkelerin bir dönemdeki net göçü ile başka bir dönemdeki net göçü arasındaki Pearson korelasyonu. Komşu dönemler yüksek, uzak dönemler daha düşük ilişkili.</p>
+        <div class="gp-chart gp-h420 dash-skeleton" id="korelasyon" data-draw="korelasyon" data-source="korelasyon"></div>
+      </div>
+    </section>
+
+    <!-- ============ K-MEANS ============ -->
+    <section class="gp-page" id="kumeleme" data-page="kumeleme" role="tabpanel" hidden>
+      <ol class="gp-steps">
+        <li>Her ülkenin 11 dönemlik serisi <b>işaretli log</b> ile dönüştürüldü; böylece hem yön (alan/veren) hem büyüklük korundu ve ABD gibi uç değerler kümeleri domine etmedi.</li>
+        <li>K-means, k-means++ başlangıcı ve 20 tekrar ile k = 2…8 için çalıştırıldı.</li>
+        <li>k = 2 yalnızca alan/veren ayrımı verdiği için en az <b data-draw="sabit" data-key="k_min">—</b> küme arasından en yüksek silhouette skoru seçildi: <b data-draw="v" data-source="secilen_k" data-row="0" data-field="k">—</b> küme, skor <b data-draw="v" data-source="secilen_k" data-row="0" data-field="silhouette" data-fmt="dec3">—</b>.</li>
+        <li>Kümeler merkez profillerine göre adlandırıldı.</li>
+      </ol>
+      <div class="gp-grid">
+        <div class="gp-card" id="silhouette-kart">
+          <h3>Küme sayısına göre silhouette skoru</h3>
+          <p class="gp-note">Yüksek skor, ülkelerin kendi kümesine diğer kümelerden daha yakın olduğunu gösterir. Seçilen k koyu işaretli.</p>
+          <div class="gp-chart gp-h260 dash-skeleton" id="silhouette" data-draw="silhouette" data-source="kume_secimi secilen_k"></div>
+        </div>
+        <div class="gp-card" id="profil-kart">
+          <h3>Küme merkez profilleri</h3>
+          <p class="gp-note">Her kümedeki ülkelerin dönem başına ortalama işaretli log net göçü.</p>
+          <div class="gp-legend">
+            <span><i style="background:#0b3a82"></i>Sürekli göç alan · <b data-draw="v" data-source="kume_sayilari" data-where="cluster=Sürekli göç alan" data-field="n">—</b></span>
+            <span><i style="background:#f0a07f"></i>Alandan verene dönen · <b data-draw="v" data-source="kume_sayilari" data-where="cluster=Alandan verene dönen" data-field="n">—</b></span>
+            <span><i style="background:#c8512c"></i>Sürekli göç veren · <b data-draw="v" data-source="kume_sayilari" data-where="cluster=Sürekli göç veren" data-field="n">—</b></span>
+          </div>
+          <div class="gp-chart gp-h260 dash-skeleton" id="kume-profil" data-draw="kume_profil" data-source="kume_profil"></div>
+        </div>
+      </div>
+      <div class="gp-card" id="kume-harita-kart">
+        <h3>Göç desenine göre ülke kümeleri</h3>
+        <p class="gp-note">Bir ülkeye tıklayınca Ülke karşılaştırma sekmesinde açılır.</p>
+        <div class="gp-chart gp-map dash-skeleton" id="kume-harita" data-draw="sinif_harita" data-field-name="cluster" data-source="dunya_haritasi ulkeler"></div>
+      </div>
+      <div class="gp-card" id="capraz-kart">
+        <h3>Kural tabanlı sınıflar ve k-means kümeleri</h3>
+        <p class="gp-note">Her hücre, iki yöntemin aynı ülkeye verdiği etiketlerin kesişimindeki ülke sayısı. K-means 3 kümeyle ters dönüşleri tek grupta toplarken kural tabanlı yöntem yönü ayırıyor.</p>
+        <div class="gp-chart gp-h260 dash-skeleton" id="capraz" data-draw="capraz" data-source="capraz"></div>
+      </div>
+    </section>
+
+    <!-- ============ KURAL TABANLI ============ -->
+    <section class="gp-page" id="kurallar" data-page="kurallar" role="tabpanel" hidden>
+      <ol class="gp-steps">
+        <li><b>Sürekli göç alan</b>: <b data-draw="sabit" data-key="donem">—</b> dönemin en az <b data-draw="sabit" data-key="steady">—</b> tanesinde net göç pozitif.</li>
+        <li><b>Sürekli göç veren</b>: en az <b data-draw="sabit" data-key="steady">—</b> dönemde negatif.</li>
+        <li><b>Verenden alana dönen</b>: ilk 5 dönemin (1962–1982) en az <b data-draw="sabit" data-key="half">—</b> tanesinde veren, son 5 dönemin (1992–2012) en az <b data-draw="sabit" data-key="half">—</b> tanesinde alan. 1987 geçiş dönemi.</li>
+        <li><b>Alandan verene dönen</b>: tersi.</li>
+        <li><b>Dalgalı</b>: hiçbir kurala uymayan ülkeler.</li>
+      </ol>
+      <div class="gp-card" id="sinif-harita-kart">
+        <h3>Kural tabanlı göç sınıfları</h3>
+        <div class="gp-legend">
+          <span><i style="background:#0b3a82"></i>Sürekli göç alan · <b data-draw="v" data-source="sinif_sayilari" data-where="rule_class=Sürekli göç alan" data-field="n">—</b></span>
+          <span><i style="background:#6a9fe3"></i>Verenden alana dönen · <b data-draw="v" data-source="sinif_sayilari" data-where="rule_class=Verenden alana dönen" data-field="n">—</b></span>
+          <span><i style="background:#b7c3d6"></i>Dalgalı · <b data-draw="v" data-source="sinif_sayilari" data-where="rule_class=Dalgalı" data-field="n">—</b></span>
+          <span><i style="background:#f0a07f"></i>Alandan verene dönen · <b data-draw="v" data-source="sinif_sayilari" data-where="rule_class=Alandan verene dönen" data-field="n">—</b></span>
+          <span><i style="background:#c8512c"></i>Sürekli göç veren · <b data-draw="v" data-source="sinif_sayilari" data-where="rule_class=Sürekli göç veren" data-field="n">—</b></span>
+        </div>
+        <div class="gp-chart gp-map dash-skeleton" id="sinif-harita" data-draw="sinif_harita" data-field-name="rule_class" data-source="dunya_haritasi ulkeler"></div>
+      </div>
+      <div class="gp-card" id="tablo-kart">
+        <h3>Ülke listesi</h3>
+        <p class="gp-note">Başlığa tıklayarak sıralayın, bir satıra tıklayarak ülkeyi Ülke karşılaştırma sekmesinde açın.</p>
+        <input type="search" id="tablo-ara" class="gp-search" placeholder="Ülke veya sınıf ara" aria-label="Ülke ara">
+        <div class="gp-tablebox">
+          <table class="gp-table" id="ulke-tablosu" data-source="ulkeler" data-row-key="country">
+            <thead><tr>
+              <th data-field="country" aria-sort="none"><button type="button" data-sort="country">Ülke</button></th>
+              <th data-field="rule_class" aria-sort="none"><button type="button" data-sort="rule_class">Kural sınıfı</button></th>
+              <th data-field="cluster" aria-sort="none"><button type="button" data-sort="cluster">K-means kümesi</button></th>
+              <th data-field="total" class="gp-num" aria-sort="descending"><button type="button" data-sort="total">Toplam net göç</button></th>
+              <th data-field="pos_periods" class="gp-num" aria-sort="none"><button type="button" data-sort="pos_periods">Pozitif dönem</button></th>
+              <th data-field="rate_20" class="gp-num" aria-sort="none"><button type="button" data-sort="rate_20">20. yy ‰/yıl</button></th>
+              <th data-field="rate_21" class="gp-num" aria-sort="none"><button type="button" data-sort="rate_21">21. yy ‰/yıl</button></th>
+            </tr></thead>
+            <tbody data-draw="tablo"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ YÜZYILLAR ============ -->
+    <section class="gp-page" id="yuzyillar" data-page="yuzyillar" role="tabpanel" hidden>
+      <p class="gp-intro">Nüfusa oranlı karşılaştırma. <b>Yıllık net göç hızı</b>, her 1000 kişi için yılda gelen (+) ya da giden (−) kişi sayısıdır: dönem toplamı ÷ (dönem sayısı × 5) ÷ ortalama nüfus × 1000. Dönem uzunluğundan bağımsız olduğu için 8 dönemlik 20. yüzyıl ile 3 dönemlik 21. yüzyıl karşılaştırılabilir. Eşik <b data-draw="sabit" data-key="esik">—</b>: üstü göç alan, altı göç veren, arası stabil. Nüfus, Dünya Bankası SP.POP.TOTL serisinden.</p>
+      <div class="gp-two">
+        <div class="gp-card" id="yy20-kart">
+          <h3>20. yüzyıl (1962–1997)</h3>
+          <div class="gp-chart gp-map dash-skeleton" id="yy20" data-draw="sinif_harita" data-field-name="class_20" data-source="dunya_haritasi ulkeler"></div>
+          <div class="gp-legend">
+            <span><i style="background:#1f5fbf"></i>Göç alan · <b data-draw="v" data-source="yuzyil_sayilari" data-where="century=20&amp;sinif=Göç alan" data-field="n">—</b></span>
+            <span><i style="background:#c6d2e4"></i>Stabil · <b data-draw="v" data-source="yuzyil_sayilari" data-where="century=20&amp;sinif=Stabil (±1‰)" data-field="n">—</b></span>
+            <span><i style="background:#d0603a"></i>Göç veren · <b data-draw="v" data-source="yuzyil_sayilari" data-where="century=20&amp;sinif=Göç veren" data-field="n">—</b></span>
+          </div>
+        </div>
+        <div class="gp-card" id="yy21-kart">
+          <h3>21. yüzyıl (2002–2012)</h3>
+          <div class="gp-chart gp-map dash-skeleton" id="yy21" data-draw="sinif_harita" data-field-name="class_21" data-source="dunya_haritasi ulkeler"></div>
+          <div class="gp-legend">
+            <span><i style="background:#1f5fbf"></i>Göç alan · <b data-draw="v" data-source="yuzyil_sayilari" data-where="century=21&amp;sinif=Göç alan" data-field="n">—</b></span>
+            <span><i style="background:#c6d2e4"></i>Stabil · <b data-draw="v" data-source="yuzyil_sayilari" data-where="century=21&amp;sinif=Stabil (±1‰)" data-field="n">—</b></span>
+            <span><i style="background:#d0603a"></i>Göç veren · <b data-draw="v" data-source="yuzyil_sayilari" data-where="century=21&amp;sinif=Göç veren" data-field="n">—</b></span>
+          </div>
+        </div>
+      </div>
+      <div class="gp-grid">
+        <div class="gp-card" id="gecis-kart">
+          <h3>Sınıf geçişleri</h3>
+          <p class="gp-note">Satır 20. yüzyıl, sütun 21. yüzyıl sınıfı. Köşegen dışı hücreler rejim değiştiren ülkeler.</p>
+          <div class="gp-chart gp-h260 dash-skeleton" id="gecis" data-draw="gecis" data-source="gecis"></div>
+        </div>
+        <div class="gp-card" id="oran-kart">
+          <h3>Oranı en uçta olan ülkeler</h3>
+          <p class="gp-note">Yıllık net göç hızı (‰), her yüzyılda en yüksek ve en düşük 5 ülke.</p>
+          <div class="gp-two">
+            <div class="gp-rank"><p class="gp-sub">20. yüzyıl</p><div class="gp-chart gp-h260 dash-skeleton" data-draw="oran_uclar" data-century="20" data-source="oran_uclar"></div></div>
+            <div class="gp-rank"><p class="gp-sub">21. yüzyıl</p><div class="gp-chart gp-h260 dash-skeleton" data-draw="oran_uclar" data-century="21" data-source="oran_uclar"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ÜLKE KARŞILAŞTIRMA ============ -->
+    <section class="gp-page" id="ulkeler" data-page="ulkeler" role="tabpanel" hidden>
+      <div class="gp-card" id="ulke-kart">
+        <h3>Ülke profili</h3>
+        <div class="gp-controls">
+          <select id="ulke-sec" data-draw="ulke_sec" data-source="ulkeler" aria-label="Ülke"></select>
+        </div>
+        <div class="gp-facts">
+          <div class="gp-fact"><span>Toplam net göç</span><b data-draw="v" data-source="ulkeler" data-param="ulke" data-field="total" data-fmt="signed">—</b></div>
+          <div class="gp-fact"><span>Kural sınıfı</span><b data-draw="v" data-source="ulkeler" data-param="ulke" data-field="rule_class">—</b></div>
+          <div class="gp-fact"><span>K-means kümesi</span><b data-draw="v" data-source="ulkeler" data-param="ulke" data-field="cluster">—</b></div>
+          <div class="gp-fact"><span>20. yy hız</span><b data-draw="v" data-source="ulkeler" data-param="ulke" data-field="rate_20" data-fmt="permille">—</b></div>
+          <div class="gp-fact"><span>21. yy hız</span><b data-draw="v" data-source="ulkeler" data-param="ulke" data-field="rate_21" data-fmt="permille">—</b></div>
+        </div>
+        <p class="gp-note">Çubuklar dönem başına net göç; nokta ve çizgi yıllık net göç hızı (‰, sağ eksen).</p>
+        <div class="gp-chart gp-h300 dash-skeleton" id="ulke-bar" data-draw="ulke_bar" data-source="ulke_serileri"></div>
+      </div>
+
+      <div class="gp-card" id="ikili-kart">
+        <h3>İkili ısı haritası</h3>
+        <p class="gp-note">İki ülkenin net göçü (5 yıllık dönem toplamı, B = bin, Mn = milyon kişi) ve yıllık net göç hızı (‰). Hazır çiftler analizde incelediğimiz göç koridorları.</p>
+        <div class="gp-controls">
+          <button class="gp-btn gp-ghost gp-pair" type="button" data-a="Turkey" data-b="Germany">Türkiye – Almanya</button>
+          <button class="gp-btn gp-ghost gp-pair" type="button" data-a="United States" data-b="Mexico">ABD – Meksika</button>
+          <select id="cift-a" data-draw="cift_sec" data-slot="a" data-source="ulkeler" aria-label="Birinci ülke"></select>
+          <select id="cift-b" data-draw="cift_sec" data-slot="b" data-source="ulkeler" aria-label="İkinci ülke"></select>
+        </div>
+        <div class="gp-fact"><span>İki ülkenin net göç serisi arasındaki korelasyon (11 dönem)</span><b class="gp-corr" data-draw="cift_kor" data-source="ulke_korelasyon">—</b></div>
+        <div class="gp-chart gp-h340 dash-skeleton" id="ikili-isi" data-draw="cift_isi" data-source="ulke_serileri"></div>
+      </div>
+    </section>
+
+    <p class="gp-note" style="margin-top: var(--cds-gap-lg)">Kaynak: Dünya Bankası net göç (SM.POP.NETM, 5 yıllık tahminler, migration.csv) ve toplam nüfus (SP.POP.TOTL). Ülke sınırları Natural Earth tabanlı basitleştirilmiş harita. Analiz kodu: main.py, clustering.py, rule_based.py, turkiye_almanya.py.</p>
+  </div>
+</div>
+
+<script>
+window.GP = (() => {
+  const L = d3.formatLocale({ decimal: ',', thousands: '.', grouping: [3], currency: ['', ''], minus: '−' });
+  const cmp = new Intl.NumberFormat('tr-TR', { notation: 'compact', maximumFractionDigits: 1 });
+  // Kişi sayılarını bin / milyon olarak yazar: −4,03 milyon, +403 bin, −850
+  const sign = (v) => (v > 0 ? '+' : v < 0 ? '−' : '');
+  const human = (v) => {
+    const a = Math.abs(v);
+    if (a >= 1e6) return sign(v) + L.format(',.2~f')(a / 1e6) + ' milyon';
+    if (a >= 1e3) return sign(v) + L.format(',.0f')(a / 1e3) + ' bin';
+    return sign(v) + L.format(',d')(Math.round(a));
+  };
+  const short = (v) => {
+    const a = Math.abs(v);
+    if (a >= 1e6) return sign(v) + L.format(',.1~f')(a / 1e6) + ' Mn';
+    if (a >= 1e3) return sign(v) + L.format(',.0f')(a / 1e3) + ' B';
+    return sign(v) + L.format(',d')(Math.round(a));
+  };
+  const F = {
+    int: L.format(',d'),
+    signed: human, short,
+    dec1: L.format('.1f'), dec2: L.format('.2f'), dec3: L.format('.3f'),
+    pct: L.format('.1%'),
+    permille: (v) => L.format('+.2f')(v) + '‰',
+    compact: (v) => cmp.format(v),
+    scompact: (v) => (v > 0 ? '+' : v < 0 ? '−' : '') + cmp.format(Math.abs(v)),
+    text: (v) => String(v),
+  };
+  const C = { blue: '#1f5fbf', deep: '#0b3a82', soft: '#e6eefb', warm: '#cf5a33', white: '#ffffff', ink: '#0c2340', muted: '#5b6b84', line: '#d8e2f0', grid: '#edf2f9', empty: '#eef2f7', zero: '#c6d2e4' };
+  const CLASS = {
+    'Sürekli göç alan': '#0b3a82', 'Verenden alana dönen': '#6a9fe3', 'Dalgalı': '#b7c3d6',
+    'Alandan verene dönen': '#f0a07f', 'Sürekli göç veren': '#c8512c',
+    'Göç alan': '#1f5fbf', 'Stabil (±1‰)': '#c6d2e4', 'Göç veren': '#d0603a', 'Nüfus verisi yok': '#eef2f7',
+  };
+  const RULE_ORDER = ['Sürekli göç alan', 'Verenden alana dönen', 'Dalgalı', 'Alandan verene dönen', 'Sürekli göç veren'];
+  const CLUSTER_ORDER = ['Sürekli göç alan', 'Alandan verene dönen', 'Sürekli göç veren'];
+  const CENT_ORDER = ['Göç alan', 'Stabil (±1‰)', 'Göç veren', 'Nüfus verisi yok'];
+  // Analizde seçilen eşikler (rule_based.py, main.py)
+  const K = { donem: 11, steady: 9, half: 3, esik: 1, k_min: 3, limit: 2e6 };
+  const KFMT = { donem: String(K.donem), steady: String(K.steady), half: String(K.half), esik: '±' + K.esik + '‰ / yıl', k_min: String(K.k_min), limit_neg: F.scompact(-K.limit), limit_pos: F.scompact(K.limit) };
+
+  const toWarm = d3.interpolateRgb('#ffffff', C.warm), toBlue = d3.interpolateRgb('#ffffff', C.deep);
+  // Simetrik log rampası: 0 beyaz, +lim lacivert, -lim turuncu
+  const diverge = (v, lim, log = true) => {
+    if (v == null || isNaN(v)) return C.empty;
+    const t = Math.min(1, log ? Math.log10(1 + Math.abs(v)) / Math.log10(1 + lim) : Math.abs(v) / lim);
+    return v >= 0 ? toBlue(t) : toWarm(t);
+  };
+  const period = (y) => `${y - 2}–${String(y + 3).slice(-2)}`;
+
+  const NUM = new Set(['year', 'net', 'population', 'rate', 'signed_log', 'total', 'pos_periods', 'neg_periods', 'rate_20', 'rate_21', 'k', 'inertia', 'silhouette']);
+  const cache = new WeakMap();
+  function rows(id) {
+    const d = dash.data(id);
+    if (d.status !== 'ok' || !Array.isArray(d.data)) return null;
+    if (cache.has(d.data)) return cache.get(d.data);
+    const out = d.data.map((r) => {
+      const o = {};
+      for (const k in r) o[k] = NUM.has(k) && typeof r[k] !== 'number' ? (r[k] === '' || r[k] == null ? null : Number(r[k])) : r[k];
+      return o;
+    });
+    cache.set(d.data, out);
+    return out;
+  }
+
+  // Tüm kaynaklar hazırsa satırları verir; değilse yer tutucuyu ya da hata satırını çizer
+  function need(el, ids, chart = true) {
+    const st = ids.map((id) => dash.data(id).status);
+    if (st.every((s) => s === 'ok')) { el.classList.remove('dash-skeleton'); return ids.map(rows); }
+    if (st.some((s) => s === 'error' || s === 'missing' || s === 'connect' || s === 'declined')) {
+      el.classList.remove('dash-skeleton');
+      const f = document.createElement('div'); f.className = 'gp-fail';
+      f.append(document.createElement('i'), 'Yüklenemedi');
+      el.replaceChildren(f);
+    } else if (chart) { el.replaceChildren(); el.classList.add('dash-skeleton'); }
+    else el.textContent = '—';
+    return null;
+  }
+
+  function svg(el, h) {
+    const w = Math.max(280, el.clientWidth || 600);
+    el.replaceChildren();
+    const s = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${w} ${h}`).attr('preserveAspectRatio', 'xMinYMin meet');
+    return { s, w, h };
+  }
+  function measure(s, texts, size = 11) {
+    const t = s.append('text').attr('font-size', size).style('font-family', 'var(--font-anthropic-sans)');
+    let m = 0;
+    for (const x of texts) { t.text(x); m = Math.max(m, t.node().getComputedTextLength()); }
+    t.remove();
+    return m;
+  }
+  function axis(g, ax) { g.call(ax).attr('font-size', null).attr('font-family', null).attr('class', 'gp-axis'); return g; }
+
+  function tip(el) {
+    let t = el.querySelector(':scope > .gp-tip');
+    if (!t) { t = document.createElement('div'); t.className = 'gp-tip'; t.hidden = true; el.append(t); }
+    return {
+      show(ev, title, lines) {
+        const head = document.createElement('div'); head.className = 't'; head.textContent = title;
+        const body = lines.map(([color, label, value]) => {
+          const r = document.createElement('div'); r.className = 'r';
+          if (color) { const s = document.createElement('i'); s.className = 's'; s.style.background = color; r.append(s); }
+          const l = document.createElement('span'); l.textContent = label;
+          const v = document.createElement('span'); v.className = 'v'; v.textContent = value;
+          r.append(l, v); return r;
+        });
+        t.replaceChildren(head, ...body); t.hidden = false;
+        const box = el.getBoundingClientRect();
+        let x = ev.clientX - box.left + 14, y = ev.clientY - box.top + 14;
+        const tw = t.offsetWidth, th = t.offsetHeight;
+        if (x + tw > box.width) x = Math.max(0, ev.clientX - box.left - tw - 14);
+        if (y + th > box.height) y = Math.max(0, ev.clientY - box.top - th - 10);
+        t.style.left = x + 'px'; t.style.top = y + 'px';
+      },
+      hide() { t.hidden = true; },
+    };
+  }
+
+  function where(el) {
+    const p = el.dataset.param;
+    if (p) {
+      const v = dash.params()[p];
+      el.dataset.where = 'country=' + encodeURIComponent(v ?? '');
+    }
+    const w = el.dataset.where;
+    if (!w) return null;
+    return w.split('&').map((kv) => kv.split('=').map(decodeURIComponent));
+  }
+
+  // Ülke seçince karşılaştırma sekmesine geç
+  function openCountry(name) {
+    dash.setParams({ ulke: name, tab: 'ulkeler' });
+    dash.setLink('ulkeler');
+  }
+
+  // Ortak harita çizimi: önceden Natural Earth projeksiyonuyla hesaplanmış yollar
+  const MAP_H = 438;
+  function map(el, geo, info, fill) {
+    el.replaceChildren();
+    const t = tip(el);
+    const s = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 1000 ${MAP_H}`);
+    s.append('g').selectAll('path').data(geo).join('path')
+      .attr('d', (d) => d.d)
+      .attr('fill', (d) => fill(info.get(d.iso3)))
+      .attr('stroke', '#ffffff').attr('stroke-width', 0.5)
+      .style('cursor', (d) => (info.has(d.iso3) ? 'pointer' : 'default'))
+      .on('mousemove', function (ev, d) {
+        d3.select(this).attr('stroke', C.ink).attr('stroke-width', 1).raise();
+        const i = info.get(d.iso3);
+        t.show(ev, i ? i.name : d.name, i ? i.lines : [[null, 'Veri yok', '']]);
+      })
+      .on('mouseleave', function () { d3.select(this).attr('stroke', '#ffffff').attr('stroke-width', 0.5); t.hide(); })
+      .on('click', (ev, d) => { const i = info.get(d.iso3); if (i) openCountry(i.name); });
+  }
+
+  return { F, C, CLASS, RULE_ORDER, CLUSTER_ORDER, CENT_ORDER, K, KFMT, diverge, period, rows, need, svg, measure, axis, tip, where, map, openCountry };
+})();
+</script>
+
+<script>
+// ---------- Hesaplamalar ----------
+dash.calc('ozet', {
+  inputs: ['ulkeler'], title: 'Ülke özeti',
+  description: 'Ülke sayısı ve 1962–2012 toplam net göçte en çok alan ve en çok veren ülke.',
+  fn: (ulkeler) => {
+    const r = ulkeler.map((u) => ({ c: u.country, t: Number(u.total) }));
+    const max = r.reduce((a, b) => (b.t > a.t ? b : a));
+    const min = r.reduce((a, b) => (b.t < a.t ? b : a));
+    return [{ ulke_sayisi: r.length, en_cok_alan: max.c, en_cok_alan_toplam: max.t, en_cok_veren: min.c, en_cok_veren_toplam: min.t }];
+  },
+});
+
+dash.calc('uclar', {
+  inputs: ['ulkeler'], title: 'En uçtaki 20 ülke',
+  description: 'Toplam net göçü en yüksek 10 ve en düşük 10 ülke.',
+  fn: (ulkeler) => {
+    const r = ulkeler.map((u) => ({ country: u.country, total: Number(u.total) })).sort((a, b) => b.total - a.total);
+    return [...r.slice(0, 10), ...r.slice(-10)].map((x) => ({ ...x, yon: x.total > 0 ? 'Göç alan' : 'Göç veren' }));
+  },
+});
+
+dash.calc('isaret', {
+  inputs: ['ulke_serileri'], title: 'Dönem başına alan/veren ülke sayısı',
+  description: 'Her dönemde net göçü pozitif, negatif ve sıfır olan ülke sayısı.',
+  fn: (ulke_serileri) => {
+    const m = new Map();
+    for (const r of ulke_serileri) {
+      const y = Number(r.year), v = Number(r.net);
+      if (!m.has(y)) m.set(y, { year: y, alan: 0, veren: 0, sifir: 0 });
+      const o = m.get(y);
+      if (v > 0) o.alan++; else if (v < 0) o.veren++; else o.sifir++;
+    }
+    return [...m.values()].sort((a, b) => a.year - b.year);
+  },
+});
+
+dash.calc('histogram', {
+  inputs: ['ulke_serileri'], title: 'İşaretli log dağılımı',
+  description: 'sign(x)·log10(|x|+1) değerlerinin 0,25 genişliğinde kutulara göre sayısı.',
+  fn: (ulke_serileri) => {
+    const w = 0.25, counts = new Map();
+    for (const r of ulke_serileri) {
+      const b = Math.floor(Number(r.signed_log) / w);
+      counts.set(b, (counts.get(b) || 0) + 1);
+    }
+    const keys = [...counts.keys()], lo = Math.min(...keys), hi = Math.max(...keys), out = [];
+    for (let b = lo; b <= hi; b++) out.push({ x0: b * w, x1: (b + 1) * w, n: counts.get(b) || 0 });
+    return out;
+  },
+});
+
+dash.calc('kutu', {
+  inputs: ['ulke_serileri'], title: 'Dönem başına çeyrekler',
+  description: 'Her dönemde ülke net göçünün çeyrekleri, medyanı ve 1,5 × IQR bıyıkları (doğrusal ara değer, pandas ile aynı).',
+  fn: (ulke_serileri) => {
+    const q = (s, p) => { const i = (s.length - 1) * p, lo = Math.floor(i); return s[lo] + (s[Math.min(lo + 1, s.length - 1)] - s[lo]) * (i - lo); };
+    const by = new Map();
+    for (const r of ulke_serileri) { const y = Number(r.year); if (!by.has(y)) by.set(y, []); by.get(y).push(Number(r.net)); }
+    return [...by].sort((a, b) => a[0] - b[0]).map(([year, v]) => {
+      const s = v.sort((a, b) => a - b), q1 = q(s, 0.25), q3 = q(s, 0.75), iqr = q3 - q1;
+      const inside = s.filter((x) => x >= q1 - 1.5 * iqr && x <= q3 + 1.5 * iqr);
+      return { year, q1, median: q(s, 0.5), q3, low: inside[0], high: inside[inside.length - 1], aykiri: s.length - inside.length };
+    });
+  },
+});
+
+dash.calc('kutu_aykiri', {
+  inputs: ['ulke_serileri'], title: 'Dönem başına aykırı ülkeler',
+  description: 'Her dönemde 1,5 × IQR bıyıklarının dışında kalan ülke-dönem gözlemleri.',
+  fn: (ulke_serileri) => {
+    const q = (s, p) => { const i = (s.length - 1) * p, lo = Math.floor(i); return s[lo] + (s[Math.min(lo + 1, s.length - 1)] - s[lo]) * (i - lo); };
+    const by = new Map();
+    for (const r of ulke_serileri) { const y = Number(r.year); if (!by.has(y)) by.set(y, []); by.get(y).push({ country: r.country, net: Number(r.net) }); }
+    const out = [];
+    for (const [year, v] of by) {
+      const s = v.map((x) => x.net).sort((a, b) => a - b), q1 = q(s, 0.25), q3 = q(s, 0.75), iqr = q3 - q1;
+      for (const x of v) if (x.net < q1 - 1.5 * iqr || x.net > q3 + 1.5 * iqr) out.push({ year, country: x.country, net: x.net });
+    }
+    return out;
+  },
+});
+
+dash.calc('istatistik', {
+  inputs: ['ulke_serileri'], title: 'Genel dağılım istatistikleri',
+  description: 'Tüm ülke-dönem gözlemlerinde IQR aykırıları, örneklem çarpıklığı (G1) ve fazlalık basıklığı (G2), pandas ile aynı formül.',
+  fn: (ulke_serileri) => {
+    const x = ulke_serileri.map((r) => Number(r.net)), n = x.length;
+    const s = [...x].sort((a, b) => a - b);
+    const q = (p) => { const i = (n - 1) * p, lo = Math.floor(i); return s[lo] + (s[Math.min(lo + 1, n - 1)] - s[lo]) * (i - lo); };
+    const q1 = q(0.25), q3 = q(0.75), iqr = q3 - q1;
+    const aykiri = x.filter((v) => v < q1 - 1.5 * iqr || v > q3 + 1.5 * iqr).length;
+    const m = x.reduce((a, b) => a + b, 0) / n;
+    const sd = Math.sqrt(x.reduce((a, v) => a + (v - m) ** 2, 0) / (n - 1));
+    const z3 = x.reduce((a, v) => a + ((v - m) / sd) ** 3, 0), z4 = x.reduce((a, v) => a + ((v - m) / sd) ** 4, 0);
+    const carpiklik = (n / ((n - 1) * (n - 2))) * z3;
+    const basiklik = ((n * (n + 1)) / ((n - 1) * (n - 2) * (n - 3))) * z4 - (3 * (n - 1) ** 2) / ((n - 2) * (n - 3));
+    return [{ gozlem: n, aykiri, aykiri_pay: aykiri / n, carpiklik, basiklik }];
+  },
+});
+
+dash.calc('korelasyon', {
+  inputs: ['ulke_serileri'], title: 'Dönemler arası korelasyon',
+  description: 'Ülkeler üzerinden iki dönemin net göçü arasındaki Pearson korelasyonu.',
+  fn: (ulke_serileri) => {
+    const by = new Map();
+    for (const r of ulke_serileri) { const y = Number(r.year); if (!by.has(y)) by.set(y, new Map()); by.get(y).set(r.country, Number(r.net)); }
+    const years = [...by.keys()].sort((a, b) => a - b), countries = [...by.get(years[0]).keys()];
+    const vec = (y) => countries.map((c) => by.get(y).get(c));
+    const corr = (a, b) => {
+      const n = a.length, ma = a.reduce((s, v) => s + v, 0) / n, mb = b.reduce((s, v) => s + v, 0) / n;
+      let sab = 0, saa = 0, sbb = 0;
+      for (let i = 0; i < n; i++) { sab += (a[i] - ma) * (b[i] - mb); saa += (a[i] - ma) ** 2; sbb += (b[i] - mb) ** 2; }
+      return sab / Math.sqrt(saa * sbb);
+    };
+    const out = [];
+    for (const a of years) for (const b of years) out.push({ a, b, r: corr(vec(a), vec(b)) });
+    return out;
+  },
+});
+
+dash.calc('secilen_k', {
+  inputs: ['kume_secimi'], title: 'Seçilen küme sayısı',
+  description: 'k ≥ 3 arasında en yüksek silhouette skorlu küme sayısı (clustering.py ile aynı kural).',
+  fn: (kume_secimi) => {
+    const best = kume_secimi.map((r) => ({ k: Number(r.k), silhouette: Number(r.silhouette) })).filter((r) => r.k >= 3)
+      .reduce((a, b) => (b.silhouette > a.silhouette ? b : a));
+    return [best];
+  },
+});
+
+dash.calc('kume_profil', {
+  inputs: ['ulke_serileri', 'ulkeler'], title: 'Küme merkez profilleri',
+  description: 'Her k-means kümesindeki ülkelerin dönem başına ortalama işaretli log net göçü.',
+  fn: (ulke_serileri, ulkeler) => {
+    const cl = new Map(ulkeler.map((u) => [u.country, u.cluster])), acc = new Map();
+    for (const r of ulke_serileri) {
+      const key = cl.get(r.country) + '|' + r.year;
+      const o = acc.get(key) || { cluster: cl.get(r.country), year: Number(r.year), s: 0, n: 0 };
+      o.s += Number(r.signed_log); o.n++; acc.set(key, o);
+    }
+    return [...acc.values()].map((o) => ({ cluster: o.cluster, year: o.year, signed_log: o.s / o.n })).sort((a, b) => a.year - b.year);
+  },
+});
+
+dash.calc('kume_sayilari', {
+  inputs: ['ulkeler'], title: 'Küme büyüklükleri', description: 'Her k-means kümesindeki ülke sayısı.',
+  fn: (ulkeler) => { const m = new Map(); for (const u of ulkeler) m.set(u.cluster, (m.get(u.cluster) || 0) + 1); return [...m].map(([cluster, n]) => ({ cluster, n })); },
+});
+
+dash.calc('sinif_sayilari', {
+  inputs: ['ulkeler'], title: 'Kural sınıfı büyüklükleri', description: 'Her kural tabanlı sınıftaki ülke sayısı.',
+  fn: (ulkeler) => { const m = new Map(); for (const u of ulkeler) m.set(u.rule_class, (m.get(u.rule_class) || 0) + 1); return [...m].map(([rule_class, n]) => ({ rule_class, n })); },
+});
+
+dash.calc('capraz', {
+  inputs: ['ulkeler'], title: 'Kural sınıfı × k-means kümesi', description: 'İki yöntemin etiket kesişimlerindeki ülke sayısı.',
+  fn: (ulkeler) => {
+    const m = new Map();
+    for (const u of ulkeler) { const k = u.rule_class + '|' + u.cluster; m.set(k, (m.get(k) || 0) + 1); }
+    return [...m].map(([k, n]) => { const [rule_class, cluster] = k.split('|'); return { rule_class, cluster, n }; });
+  },
+});
+
+dash.calc('yuzyil_sayilari', {
+  inputs: ['ulkeler'], title: 'Yüzyıl sınıfı büyüklükleri', description: 'Her yüzyılda nüfusa oranlı sınıflardaki ülke sayısı.',
+  fn: (ulkeler) => {
+    const m = new Map();
+    for (const u of ulkeler) for (const c of ['20', '21']) { const k = c + '|' + u['class_' + c]; m.set(k, (m.get(k) || 0) + 1); }
+    return [...m].map(([k, n]) => { const [century, sinif] = k.split('|'); return { century, sinif, n }; });
+  },
+});
+
+dash.calc('gecis', {
+  inputs: ['ulkeler'], title: 'Yüzyıllar arası sınıf geçişi', description: '20. yüzyıl sınıfından 21. yüzyıl sınıfına geçen ülke sayısı.',
+  fn: (ulkeler) => {
+    const m = new Map();
+    for (const u of ulkeler) { const k = u.class_20 + '|' + u.class_21; m.set(k, (m.get(k) || 0) + 1); }
+    return [...m].map(([k, n]) => { const [class_20, class_21] = k.split('|'); return { class_20, class_21, n }; });
+  },
+});
+
+dash.calc('oran_uclar', {
+  inputs: ['ulkeler'], title: 'Göç hızı en uçtaki ülkeler', description: 'Her yüzyılda yıllık net göç hızı (‰) en yüksek ve en düşük 5 ülke.',
+  fn: (ulkeler) => {
+    const out = [];
+    for (const c of ['20', '21']) {
+      const r = ulkeler.filter((u) => u['rate_' + c] !== '' && u['rate_' + c] != null)
+        .map((u) => ({ century: c, country: u.country, rate: Number(u['rate_' + c]) })).sort((a, b) => b.rate - a.rate);
+      out.push(...r.slice(0, 5), ...r.slice(-5));
+    }
+    return out;
+  },
+});
+
+dash.calc('ulke_korelasyon', {
+  inputs: ['ulke_serileri'], title: 'Ülke çiftleri korelasyonu', description: 'Her iki ülkenin 11 dönemlik net göç serisi arasındaki Pearson korelasyonu.',
+  fn: (ulke_serileri) => {
+    const by = new Map();
+    for (const r of ulke_serileri) { if (!by.has(r.country)) by.set(r.country, []); by.get(r.country).push([Number(r.year), Number(r.net)]); }
+    const names = [...by.keys()].sort();
+    const v = names.map((c) => {
+      const x = by.get(c).sort((a, b) => a[0] - b[0]).map((p) => p[1]), m = x.reduce((s, a) => s + a, 0) / x.length;
+      const d = x.map((a) => a - m), n = Math.sqrt(d.reduce((s, a) => s + a * a, 0));
+      return d.map((a) => (n ? a / n : 0));
+    });
+    const out = [];
+    for (let i = 0; i < names.length; i++) for (let j = i + 1; j < names.length; j++) {
+      let s = 0; for (let k = 0; k < v[i].length; k++) s += v[i][k] * v[j][k];
+      out.push({ a: names[i], b: names[j], r: s });
+    }
+    return out;
+  },
+});
+</script>
+
+<script>
+// ---------- Sekmeler ve kontroller ----------
+const GPT = ['genel', 'dagilim', 'kumeleme', 'kurallar', 'yuzyillar', 'ulkeler'];
+{
+  const named = location.hash.slice(1);
+  if (GPT.includes(named)) dash.setParams({ tab: named });
+}
+document.querySelectorAll('.gp-tab').forEach((b) => b.addEventListener('click', () => {
+  dash.setParams({ tab: b.dataset.tab });
+  dash.setLink(b.dataset.tab);
+}));
+document.querySelectorAll('.gp-range').forEach((r) => r.addEventListener('input', () => dash.setParams({ yil: Number(r.value) })));
+document.querySelectorAll('.gp-pair').forEach((b) => b.addEventListener('click', () => dash.setParams({ a: b.dataset.a, b: b.dataset.b })));
+
+let gpTimer = null;
+const gpStop = () => {
+  clearInterval(gpTimer); gpTimer = null;
+  document.querySelectorAll('.gp-play-on').forEach((e) => (e.hidden = false));
+  document.querySelectorAll('.gp-play-off').forEach((e) => (e.hidden = true));
+};
+document.querySelectorAll('.gp-play').forEach((b) => b.addEventListener('click', () => {
+  if (gpTimer) return gpStop();
+  document.querySelectorAll('.gp-play-on').forEach((e) => (e.hidden = true));
+  document.querySelectorAll('.gp-play-off').forEach((e) => (e.hidden = false));
+  if ((dash.params().yil ?? 2012) >= 2012) dash.setParams({ yil: 1962 });
+  gpTimer = setInterval(() => {
+    const y = (dash.params().yil ?? 2012) + 5;
+    if (y > 2012) return gpStop();
+    dash.setParams({ yil: y });
+  }, 1100);
+}));
+
+dash.onData(() => {
+  const p = dash.params(), tab = GPT.includes(p.tab) ? p.tab : 'genel';
+  document.querySelectorAll('.gp-page').forEach((s) => (s.hidden = s.dataset.page !== tab));
+  document.querySelectorAll('.gp-tab').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
+  document.querySelectorAll('.gp-range').forEach((r) => (r.value = String(p.yil ?? 2012)));
+  if (tab !== 'genel' && gpTimer) gpStop();
+});
+</script>
+
+<script>
+// ---------- Değer ve sabit çizimleri ----------
+dash.draw('v', (el) => {
+  const id = el.dataset.source, d = dash.data(id);
+  if (d.status !== 'ok') { el.textContent = '—'; return; }
+  const rows = GP.rows(id), w = GP.where(el);
+  const row = w ? rows.find((r) => w.every(([k, v]) => String(r[k]) === v)) : rows[Number(el.dataset.row || 0)];
+  const val = row ? row[el.dataset.field] : null;
+  if (val == null || val === '') { el.textContent = '—'; return; }
+  el.textContent = (GP.F[el.dataset.fmt] || (typeof val === 'number' ? GP.F.int : GP.F.text))(val);
+});
+dash.draw('sabit', (el) => { el.textContent = GP.KFMT[el.dataset.key] ?? '—'; });
+dash.draw('yil', (el) => { const y = dash.params().yil ?? 2012; el.textContent = GP.period(y); });
+</script>
+
+<script>
+// ---------- Genel bakış ----------
+dash.draw('harita_yil', (el) => {
+  const got = GP.need(el, ['dunya_haritasi', 'ulke_serileri']);
+  if (!got) return;
+  const [geo, ser] = got, y = dash.params().yil ?? 2012;
+  const info = new Map();
+  for (const r of ser) if (r.year === y && r.iso3) info.set(r.iso3, {
+    name: r.country, v: r.net,
+    lines: [[null, GP.period(y) + ' net göç', GP.F.signed(r.net)], [null, 'Yıllık hız', r.rate == null ? 'nüfus yok' : GP.F.permille(r.rate)]],
+  });
+  GP.map(el, geo, info, (i) => GP.diverge(i ? i.v : null, GP.K.limit));
+});
+
+const GP_REG = { 'Kuzey Amerika': '#0b3a82', 'Avrupa ve Orta Asya': '#3d7fd9', 'Orta Doğu ve Kuzey Afrika': '#2a9d8f', 'Doğu Asya ve Pasifik': '#8c6bc8', 'Sahra Altı Afrika': '#c9a227', 'Latin Amerika ve Karayipler': '#e07a3f', 'Güney Asya': '#c8512c', 'Dünya': '#8a97ab' };
+window.gpHidden = window.gpHidden || new Set();
+
+dash.draw('bolge_lejant', (el) => {
+  const got = GP.need(el, ['bolge_serileri'], false);
+  if (!got) return;
+  const names = [...new Set(got[0].map((r) => r.region))];
+  el.replaceChildren(...names.map((n) => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'gp-chip';
+    b.setAttribute('aria-pressed', String(!gpHidden.has(n)));
+    const i = document.createElement('i'); i.style.background = GP_REG[n] || '#8a97ab';
+    b.append(i, n);
+    b.onclick = () => { gpHidden.has(n) ? gpHidden.delete(n) : gpHidden.add(n); dash.draw('bolge_lejant'); dash.draw('bolgeler'); };
+    return b;
+  }));
+});
+
+dash.draw('bolgeler', (el) => {
+  const got = GP.need(el, ['bolge_serileri']);
+  if (!got) return;
+  const rows = got[0], years = [...new Set(rows.map((r) => r.year))].sort((a, b) => a - b);
+  const groups = d3.groups(rows.filter((r) => !gpHidden.has(r.region)), (r) => r.region);
+  const { s, w, h } = GP.svg(el, 300), t = GP.tip(el);
+  const ext = d3.extent(groups.flatMap(([, v]) => v.map((r) => r.net)).concat([0]));
+  const y = d3.scaleLinear(ext, [h - 26, 10]).nice();
+  const ml = GP.measure(s, y.ticks(6).map(GP.F.compact)) + 10;
+  const x = d3.scalePoint(years, [ml, w - 12]);
+  GP.axis(s.append('g').attr('class', 'gp-gridl').attr('transform', `translate(${ml},0)`), d3.axisLeft(y).ticks(6).tickSize(-(w - ml - 12)).tickFormat(GP.F.compact)).classed('gp-gridl', true).call((g) => g.select('.domain').remove()).call((g) => g.selectAll('line').attr('stroke', GP.C.grid));
+  const every = w < 520 ? 2 : 1;
+  GP.axis(s.append('g').attr('transform', `translate(0,${h - 26})`), d3.axisBottom(x).tickValues(years.filter((_, i) => i % every === 0)).tickFormat(String)).call((g) => g.select('.domain').remove());
+  s.append('line').attr('x1', ml).attr('x2', w - 12).attr('y1', y(0)).attr('y2', y(0)).attr('stroke', GP.C.muted).attr('stroke-width', 1);
+  const line = d3.line().x((r) => x(r.year)).y((r) => y(r.net));
+  s.append('g').selectAll('path').data(groups).join('path')
+    .attr('d', ([, v]) => line(v)).attr('fill', 'none').attr('stroke', ([n]) => GP_REG[n]).attr('stroke-width', 2)
+    .attr('stroke-dasharray', ([n]) => (n === 'Dünya' ? '4 3' : null)).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round');
+  const rule = s.append('line').attr('y1', 10).attr('y2', h - 26).attr('stroke', GP.C.line).attr('opacity', 0);
+  s.append('rect').attr('x', ml).attr('y', 0).attr('width', w - ml).attr('height', h).attr('fill', 'transparent')
+    .on('mousemove', (ev) => {
+      const [mx] = d3.pointer(ev), yr = years.reduce((a, b) => (Math.abs(x(b) - mx) < Math.abs(x(a) - mx) ? b : a));
+      rule.attr('x1', x(yr)).attr('x2', x(yr)).attr('opacity', 1);
+      const lines = groups.map(([n, v]) => [n, v.find((r) => r.year === yr)?.net ?? 0])
+        .sort((a, b) => b[1] - a[1]).map(([n, v]) => [GP_REG[n], n, GP.F.signed(v)]);
+      t.show(ev, GP.period(yr), lines);
+    })
+    .on('mouseleave', () => { rule.attr('opacity', 0); t.hide(); });
+});
+
+dash.draw('uclar', (el) => {
+  const got = GP.need(el, ['uclar']);
+  if (!got) return;
+  const rows = [...got[0]].sort((a, b) => b.total - a.total), h = rows.length * 19 + 30;
+  const { s, w } = GP.svg(el, h), t = GP.tip(el);
+  const lw = GP.measure(s, rows.map((r) => r.country)) + 10;
+  const x = d3.scaleLinear(d3.extent(rows.map((r) => r.total).concat([0])), [lw, w - 12]).nice();
+  const yb = d3.scaleBand(rows.map((r) => r.country), [6, h - 24]).padding(0.22);
+  GP.axis(s.append('g').attr('transform', `translate(0,${h - 24})`), d3.axisBottom(x).ticks(w < 500 ? 4 : 6).tickFormat(GP.F.scompact)).call((g) => g.select('.domain').remove());
+  s.append('g').selectAll('rect').data(rows).join('rect')
+    .attr('x', (r) => Math.min(x(0), x(r.total))).attr('width', (r) => Math.abs(x(r.total) - x(0)))
+    .attr('y', (r) => yb(r.country)).attr('height', yb.bandwidth()).attr('rx', 2)
+    .attr('fill', (r) => (r.total > 0 ? GP.C.blue : GP.C.warm))
+    .on('mousemove', (ev, r) => t.show(ev, r.country, [[r.total > 0 ? GP.C.blue : GP.C.warm, r.yon, GP.F.signed(r.total)]]))
+    .on('mouseleave', () => t.hide())
+    .on('click', (ev, r) => GP.openCountry(r.country)).style('cursor', 'pointer');
+  s.append('g').selectAll('text').data(rows).join('text')
+    .attr('x', lw - 8).attr('y', (r) => yb(r.country) + yb.bandwidth() / 2).attr('dy', '0.35em').attr('text-anchor', 'end')
+    .attr('font-size', 11).attr('fill', GP.C.ink).text((r) => r.country);
+  s.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 4).attr('y2', h - 24).attr('stroke', GP.C.muted);
+});
+
+dash.draw('isaret', (el) => {
+  const got = GP.need(el, ['isaret']);
+  if (!got) return;
+  const rows = got[0], { s, w, h } = GP.svg(el, 260), t = GP.tip(el);
+  const keys = [['alan', GP.C.blue, 'Göç alan'], ['sifir', GP.C.zero, 'Sıfır'], ['veren', GP.C.warm, 'Göç veren']];
+  const y = d3.scaleLinear([0, d3.max(rows, (r) => r.alan + r.veren + r.sifir)], [h - 26, 10]).nice();
+  const ml = GP.measure(s, y.ticks(5).map(String)) + 10;
+  const x = d3.scaleBand(rows.map((r) => r.year), [ml, w - 8]).padding(0.25);
+  GP.axis(s.append('g').attr('transform', `translate(${ml},0)`), d3.axisLeft(y).ticks(5).tickSize(-(w - ml - 8))).call((g) => g.select('.domain').remove()).call((g) => g.selectAll('line').attr('stroke', GP.C.grid));
+  GP.axis(s.append('g').attr('transform', `translate(0,${h - 26})`), d3.axisBottom(x).tickFormat((v, i) => (w < 520 && i % 2 ? '' : GP.period(v)))).call((g) => g.select('.domain').remove());
+  const stack = d3.stack().keys(keys.map((k) => k[0]))(rows);
+  s.append('g').selectAll('g').data(stack).join('g').attr('fill', (d, i) => keys[i][1])
+    .selectAll('rect').data((d) => d).join('rect')
+    .attr('x', (d) => x(d.data.year)).attr('width', x.bandwidth()).attr('y', (d) => y(d[1])).attr('height', (d) => y(d[0]) - y(d[1]))
+    .on('mousemove', (ev, d) => t.show(ev, GP.period(d.data.year), keys.map(([k, c, l]) => [c, l, GP.F.int(d.data[k])])))
+    .on('mouseleave', () => t.hide());
+});
+</script>
+
+<script>
+// ---------- Dağılım ----------
+dash.draw('hist', (el) => {
+  const got = GP.need(el, ['histogram']);
+  if (!got) return;
+  const rows = got[0], { s, w, h } = GP.svg(el, 300), t = GP.tip(el);
+  const y = d3.scaleLinear([0, d3.max(rows, (r) => r.n)], [h - 26, 10]).nice();
+  const ml = GP.measure(s, y.ticks(5).map(String)) + 10;
+  const x = d3.scaleLinear([d3.min(rows, (r) => r.x0), d3.max(rows, (r) => r.x1)], [ml, w - 8]);
+  GP.axis(s.append('g').attr('transform', `translate(${ml},0)`), d3.axisLeft(y).ticks(5).tickSize(-(w - ml - 8))).call((g) => g.select('.domain').remove()).call((g) => g.selectAll('line').attr('stroke', GP.C.grid));
+  GP.axis(s.append('g').attr('transform', `translate(0,${h - 26})`), d3.axisBottom(x).ticks(w < 500 ? 6 : 12).tickFormat(GP.F.text)).call((g) => g.select('.domain').remove());
+  s.append('g').selectAll('rect').data(rows).join('rect')
+    .attr('x', (r) => x(r.x0) + 0.5).attr('width', (r) => Math.max(0, x(r.x1) - x(r.x0) - 1))
+    .attr('y', (r) => y(r.n)).attr('height', (r) => y(0) - y(r.n)).attr('rx', 1)
+    .attr('fill', (r) => (r.x0 >= 0 ? GP.C.blue : GP.C.warm))
+    .on('mousemove', (ev, r) => t.show(ev, `${GP.F.dec2(r.x0)} … ${GP.F.dec2(r.x1)}`, [[null, 'Gözlem', GP.F.int(r.n)]]))
+    .on('mouseleave', () => t.hide());
+  s.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 10).attr('y2', h - 26).attr('stroke', GP.C.muted).attr('stroke-dasharray', '3 3');
+});
+
+dash.draw('kutu', (el) => {
+  const got = GP.need(el, ['kutu', 'kutu_aykiri']);
+  if (!got) return;
+  const [box, out] = got, { s, w, h } = GP.svg(el, 300), t = GP.tip(el);
+  const ext = d3.extent(out.map((r) => r.net).concat(box.flatMap((r) => [r.low, r.high])));
+  const y = d3.scaleSymlog(ext, [h - 26, 10]).constant(1e4);
+  const ticks = [-1e7, -1e6, -1e5, 0, 1e5, 1e6, 1e7].filter((v) => v >= ext[0] * 1.05 && v <= ext[1] * 1.05);
+  const ml = GP.measure(s, ticks.map(GP.F.scompact)) + 10;
+  const x = d3.scaleBand(box.map((r) => r.year), [ml, w - 8]).padding(0.35);
+  GP.axis(s.append('g').attr('transform', `translate(${ml},0)`), d3.axisLeft(y).tickValues(ticks).tickFormat(GP.F.scompact).tickSize(-(w - ml - 8))).call((g) => g.select('.domain').remove()).call((g) => g.selectAll('line').attr('stroke', GP.C.grid));
+  GP.axis(s.append('g').attr('transform', `translate(0,${h - 26})`), d3.axisBottom(x).tickFormat((v, i) => (w < 520 && i % 2 ? '' : String(v)))).call((g) => g.select('.domain').remove());
+  const g = s.append('g').selectAll('g').data(box).join('g').attr('transform', (r) => `translate(${x(r.year)},0)`);
+  const bw = x.bandwidth();
+  g.append('line').attr('x1', bw / 2).attr('x2', bw / 2).attr('y1', (r) => y(r.low)).attr('y2', (r) => y(r.high)).attr('stroke', GP.C.deep);
+  g.append('rect').attr('width', bw).attr('y', (r) => y(r.q3)).attr('height', (r) => Math.max(1, y(r.q1) - y(r.q3))).attr('rx', 2).attr('fill', GP.C.soft).attr('stroke', GP.C.deep);
+  g.append('line').attr('x2', bw).attr('y1', (r) => y(r.median)).attr('y2', (r) => y(r.median)).attr('stroke', GP.C.deep).attr('stroke-width', 2);
+  g.append('rect').attr('width', bw).attr('y', 10).attr('height', h - 36).attr('fill', 'transparent')
+    .on('mousemove', (ev, r) => t.show(ev, GP.period(r.year), [[null, 'Medyan', GP.F.signed(Math.round(r.median))], [null, 'Q1 – Q3', `${GP.F.signed(Math.round(r.q1))} … ${GP.F.signed(Math.round(r.q3))}`], [null, 'Aykırı ülke', GP.F.int(r.aykiri)]]))
+    .on('mouseleave', () => t.hide());
+  s.append('g').selectAll('circle').data(out).join('circle')
+    .attr('cx', (r) => x(r.year) + bw / 2).attr('cy', (r) => y(r.net)).attr('r', 2.6)
+    .attr('fill', (r) => (r.net > 0 ? GP.C.blue : GP.C.warm)).attr('fill-opacity', 0.55)
+    .on('mousemove', (ev, r) => t.show(ev, `${r.country} · ${GP.period(r.year)}`, [[null, 'Net göç', GP.F.signed(r.net)]]))
+    .on('mouseleave', () => t.hide());
+});
+
+dash.draw('korelasyon', (el) => {
+  const got = GP.need(el, ['korelasyon']);
+  if (!got) return;
+  const rows = got[0], years = [...new Set(rows.map((r) => r.a))].sort((a, b) => a - b);
+  const w0 = Math.max(280, el.clientWidth || 600), size = Math.min(w0, 640), h = size;
+  const { s, w } = GP.svg(el, h), t = GP.tip(el);
+  const m = 40, x = d3.scaleBand(years, [m, Math.min(w, size) - 4]).padding(0.04), y = d3.scaleBand(years, [4, h - m]).padding(0.04);
+  const col = (r) => (r >= 0 ? d3.interpolateRgb('#ffffff', GP.C.deep)(r) : d3.interpolateRgb('#ffffff', GP.C.warm)(-r));
+  s.append('g').selectAll('rect').data(rows).join('rect')
+    .attr('x', (r) => x(r.a)).attr('y', (r) => y(r.b)).attr('width', x.bandwidth()).attr('height', y.bandwidth()).attr('rx', 2)
+    .attr('fill', (r) => col(r.r))
+    .on('mousemove', (ev, r) => t.show(ev, `${GP.period(r.a)} × ${GP.period(r.b)}`, [[null, 'Korelasyon', GP.F.dec2(r.r)]]))
+    .on('mouseleave', () => t.hide());
+  if (x.bandwidth() > 30) s.append('g').selectAll('text').data(rows).join('text')
+    .attr('x', (r) => x(r.a) + x.bandwidth() / 2).attr('y', (r) => y(r.b) + y.bandwidth() / 2).attr('dy', '0.35em').attr('text-anchor', 'middle')
+    .attr('font-size', 10).attr('pointer-events', 'none').attr('fill', (r) => (Math.abs(r.r) > 0.55 ? '#ffffff' : GP.C.ink)).text((r) => GP.F.dec2(r.r));
+  GP.axis(s.append('g').attr('transform', `translate(0,${h - m})`), d3.axisBottom(x).tickFormat((v, i) => (x.bandwidth() < 34 && i % 2 ? '' : String(v)))).call((g) => g.select('.domain').remove());
+  GP.axis(s.append('g').attr('transform', `translate(${m},0)`), d3.axisLeft(y).tickFormat((v, i) => (y.bandwidth() < 20 && i % 2 ? '' : String(v)))).call((g) => g.select('.domain').remove());
+});
+</script>
+
+<script>
+// ---------- Kümeleme ve sınıflar ----------
+dash.draw('silhouette', (el) => {
+  const got = GP.need(el, ['kume_secimi', 'secilen_k']);
+  if (!got) return;
+  const [rows, best] = got, { s, w, h } = GP.svg(el, 260), t = GP.tip(el);
+  const y = d3.scaleLinear(d3.extent(rows, (r) => r.silhouette), [h - 26, 14]).nice();
+  const ml = GP.measure(s, y.ticks(5).map(GP.F.dec2)) + 10;
+  const x = d3.scalePoint(rows.map((r) => r.k), [ml + 10, w - 16]);
+  GP.axis(s.append('g').attr('transform', `translate(${ml},0)`), d3.axisLeft(y).ticks(5).tickFormat(GP.F.dec2).tickSize(-(w - ml - 8))).call((g) => g.select('.domain').remove()).call((g) => g.selectAll('line').attr('stroke', GP.C.grid));
+  GP.axis(s.append('g').attr('transform', `translate(0,${h - 26})`), d3.axisBottom(x).tickFormat((k) => 'k=' + k)).call((g) => g.select('.domain').remove());
+  s.append('path').datum(rows).attr('d', d3.line().x((r) => x(r.k)).y((r) => y(r.silhouette))).attr('fill', 'none').attr('stroke', GP.C.blue).attr('stroke-width', 2).attr('stroke-linejoin', 'round');
+  const bk = best[0].k;
+  s.append('g').selectAll('circle').data(rows).join('circle')
+    .attr('cx', (r) => x(r.k)).attr('cy', (r) => y(r.silhouette)).attr('r', (r) => (r.k === bk ? 6 : 3.5))
+    .attr('fill', (r) => (r.k === bk ? GP.C.deep : '#ffffff')).attr('stroke', GP.C.blue).attr('stroke-width', 2)
+    .on('mousemove', (ev, r) => t.show(ev, 'k = ' + r.k, [[null, 'Silhouette', GP.F.dec3(r.silhouette)], [null, 'Atalet', GP.F.int(Math.round(r.inertia))]]))
+    .on('mouseleave', () => t.hide());
+});
+
+dash.draw('kume_profil', (el) => {
+  const got = GP.need(el, ['kume_profil']);
+  if (!got) return;
+  const rows = got[0], years = [...new Set(rows.map((r) => r.year))].sort((a, b) => a - b);
+  const groups = d3.groups(rows, (r) => r.cluster);
+  const { s, w, h } = GP.svg(el, 260), t = GP.tip(el);
+  const y = d3.scaleLinear(d3.extent(rows.map((r) => r.signed_log).concat([0])), [h - 26, 10]).nice();
+  const ml = GP.measure(s, y.ticks(5).map(GP.F.text)) + 10;
+  const x = d3.scalePoint(years, [ml + 6, w - 10]);
+  GP.axis(s.append('g').attr('transform', `translate(${ml},0)`), d3.axisLeft(y).ticks(5).tickSize(-(w - ml - 8))).call((g) => g.select('.domain').remove()).call((g) => g.selectAll('line').attr('stroke', GP.C.grid));
+  GP.axis(s.append('g').attr('transform', `translate(0,${h - 26})`), d3.axisBottom(x).tickValues(years.filter((_, i) => w > 520 || i % 2 === 0)).tickFormat(String)).call((g) => g.select('.domain').remove());
+  s.append('line').attr('x1', ml).attr('x2', w - 8).attr('y1', y(0)).attr('y2', y(0)).attr('stroke', GP.C.muted);
+  const line = d3.line().x((r) => x(r.year)).y((r) => y(r.signed_log));
+  s.append('g').selectAll('path').data(groups).join('path').attr('d', ([, v]) => line(v)).attr('fill', 'none')
+    .attr('stroke', ([c]) => GP.CLASS[c]).attr('stroke-width', 2).attr('stroke-linejoin', 'round').attr('stroke-linecap', 'round');
+  const rule = s.append('line').attr('y1', 10).attr('y2', h - 26).attr('stroke', GP.C.line).attr('opacity', 0);
+  s.append('rect').attr('x', ml).attr('width', w - ml).attr('height', h).attr('fill', 'transparent')
+    .on('mousemove', (ev) => {
+      const [mx] = d3.pointer(ev), yr = years.reduce((a, b) => (Math.abs(x(b) - mx) < Math.abs(x(a) - mx) ? b : a));
+      rule.attr('x1', x(yr)).attr('x2', x(yr)).attr('opacity', 1);
+      t.show(ev, GP.period(yr), groups.map(([c, v]) => [GP.CLASS[c], c, GP.F.dec2(v.find((r) => r.year === yr).signed_log)]));
+    })
+    .on('mouseleave', () => { rule.attr('opacity', 0); t.hide(); });
+});
+
+dash.draw('sinif_harita', (el) => {
+  const got = GP.need(el, ['dunya_haritasi', 'ulkeler']);
+  if (!got) return;
+  const [geo, ul] = got, f = el.dataset.fieldName, info = new Map();
+  for (const u of ul) if (u.iso3) {
+    const lines = [[GP.CLASS[u[f]], u[f], '']];
+    if (f.startsWith('class_')) { const r = u['rate_' + f.slice(6)]; lines.push([null, 'Yıllık hız', r == null ? 'nüfus yok' : GP.F.permille(r)]); }
+    lines.push([null, 'Toplam net göç', GP.F.signed(u.total)]);
+    info.set(u.iso3, { name: u.country, c: u[f], lines });
+  }
+  GP.map(el, geo, info, (i) => (i ? GP.CLASS[i.c] || GP.C.empty : GP.C.empty));
+});
+
+function gpMatrix(el, rows, rk, ck, rorder, corder, rlabel, clabel) {
+  const present = (o, k) => o.filter((v) => rows.some((r) => r[k] === v));
+  const R = present(rorder, rk), Cc = present(corder, ck);
+  const lookup = new Map(rows.map((r) => [r[rk] + '|' + r[ck], r.n]));
+  const max = d3.max(rows, (r) => r.n);
+  const cellH = 34, h = R.length * cellH + 56;
+  const { s, w } = GP.svg(el, h), t = GP.tip(el);
+  const lw = GP.measure(s, R) + 14;
+  const x = d3.scaleBand(Cc, [lw, w - 4]).padding(0.06), y = d3.scaleBand(R, [44, h - 4]).padding(0.08);
+  const cells = R.flatMap((r) => Cc.map((c) => ({ r, c, n: lookup.get(r + '|' + c) || 0 })));
+  const col = d3.interpolateRgb('#f6f9fe', GP.C.deep);
+  s.append('g').selectAll('rect').data(cells).join('rect').attr('x', (d) => x(d.c)).attr('y', (d) => y(d.r))
+    .attr('width', x.bandwidth()).attr('height', y.bandwidth()).attr('rx', 3).attr('fill', (d) => (d.n ? col(Math.sqrt(d.n / max)) : '#f6f9fe'))
+    .attr('stroke', GP.C.line)
+    .on('mousemove', (ev, d) => t.show(ev, `${rlabel}: ${d.r}`, [[null, `${clabel}: ${d.c}`, GP.F.int(d.n) + ' ülke']]))
+    .on('mouseleave', () => t.hide());
+  s.append('g').selectAll('text').data(cells).join('text').attr('x', (d) => x(d.c) + x.bandwidth() / 2).attr('y', (d) => y(d.r) + y.bandwidth() / 2)
+    .attr('dy', '0.35em').attr('text-anchor', 'middle').attr('font-size', 12).attr('pointer-events', 'none')
+    .attr('fill', (d) => (d.n / max > 0.35 ? '#ffffff' : GP.C.ink)).text((d) => (d.n ? GP.F.int(d.n) : '·'));
+  s.append('g').selectAll('text').data(R).join('text').attr('x', lw - 8).attr('y', (r) => y(r) + y.bandwidth() / 2).attr('dy', '0.35em')
+    .attr('text-anchor', 'end').attr('font-size', 11).attr('fill', GP.C.ink).text((r) => r);
+  const cl = s.append('g').selectAll('g').data(Cc).join('g').attr('transform', (c) => `translate(${x(c) + x.bandwidth() / 2},36)`);
+  cl.append('text').attr('text-anchor', 'middle').attr('font-size', 11).attr('fill', GP.C.muted)
+    .text((c) => c).each(function () {
+      const node = this, max = x.bandwidth() - 4;
+      let txt = node.textContent;
+      while (node.getComputedTextLength() > max && txt.length > 3) { txt = txt.slice(0, -2); node.textContent = txt + '…'; }
+    });
+}
+
+dash.draw('capraz', (el) => {
+  const got = GP.need(el, ['capraz']);
+  if (got) gpMatrix(el, got[0], 'rule_class', 'cluster', GP.RULE_ORDER, GP.CLUSTER_ORDER, 'Kural sınıfı', 'K-means');
+});
+dash.draw('gecis', (el) => {
+  const got = GP.need(el, ['gecis']);
+  if (got) gpMatrix(el, got[0], 'class_20', 'class_21', GP.CENT_ORDER, GP.CENT_ORDER, '20. yy', '21. yy');
+});
+
+window.gpSort = window.gpSort || { key: 'total', dir: -1 };
+document.querySelectorAll('.gp-table th button').forEach((b) => b.addEventListener('click', () => {
+  const k = b.dataset.sort;
+  gpSort.dir = gpSort.key === k ? -gpSort.dir : (k === 'country' || k === 'rule_class' || k === 'cluster' ? 1 : -1);
+  gpSort.key = k;
+  document.querySelectorAll('.gp-table th').forEach((th) => th.setAttribute('aria-sort', th.dataset.field === k ? (gpSort.dir > 0 ? 'ascending' : 'descending') : 'none'));
+  dash.draw('tablo');
+}));
+document.querySelectorAll('.gp-search').forEach((i) => i.addEventListener('input', () => dash.draw('tablo')));
+document.querySelectorAll('.gp-table').forEach((tb) => tb.addEventListener('click', (ev) => {
+  const tr = ev.target.closest('tbody tr[data-key]');
+  if (tr) GP.openCountry(tr.dataset.key);
+}));
+
+dash.draw('tablo', (el) => {
+  const d = dash.data('ulkeler');
+  if (d.status !== 'ok') { el.replaceChildren(); return; }
+  const q = (document.querySelector('.gp-search')?.value || '').toLocaleLowerCase('tr');
+  const { key, dir } = gpSort;
+  const rows = GP.rows('ulkeler').filter((u) => !q || [u.country, u.rule_class, u.cluster].join(' ').toLocaleLowerCase('tr').includes(q))
+    .sort((a, b) => {
+      const va = a[key], vb = b[key];
+      if (va == null) return 1; if (vb == null) return -1;
+      return typeof va === 'number' ? (va - vb) * dir : String(va).localeCompare(String(vb), 'tr') * dir;
+    });
+  const pill = (v) => { const s = document.createElement('span'); s.className = 'gp-pill'; const i = document.createElement('i'); i.style.background = GP.CLASS[v] || GP.C.empty; s.append(i, v); return s; };
+  el.replaceChildren(...rows.map((u) => {
+    const tr = document.createElement('tr'); tr.dataset.key = u.country;
+    const cells = [u.country, pill(u.rule_class), pill(u.cluster), GP.F.signed(u.total), GP.F.int(u.pos_periods),
+      u.rate_20 == null ? '—' : GP.F.permille(u.rate_20), u.rate_21 == null ? '—' : GP.F.permille(u.rate_21)];
+    cells.forEach((c, i) => { const td = document.createElement('td'); if (i >= 3) td.className = 'gp-num'; td.append(c); tr.append(td); });
+    return tr;
+  }));
+});
+
+dash.draw('oran_uclar', (el) => {
+  const got = GP.need(el, ['oran_uclar']);
+  if (!got) return;
+  const rows = got[0].filter((r) => r.century === el.dataset.century).sort((a, b) => b.rate - a.rate);
+  const h = rows.length * 22 + 28, { s, w } = GP.svg(el, h), t = GP.tip(el);
+  const lw = GP.measure(s, rows.map((r) => r.country)) + 10;
+  const x = d3.scaleLinear(d3.extent(rows.map((r) => r.rate).concat([0])), [lw, w - 8]).nice();
+  const y = d3.scaleBand(rows.map((r) => r.country), [4, h - 24]).padding(0.22);
+  GP.axis(s.append('g').attr('transform', `translate(0,${h - 24})`), d3.axisBottom(x).ticks(4).tickFormat((v) => GP.F.text(v) + '‰')).call((g) => g.select('.domain').remove());
+  s.append('g').selectAll('rect').data(rows).join('rect').attr('x', (r) => Math.min(x(0), x(r.rate))).attr('width', (r) => Math.abs(x(r.rate) - x(0)))
+    .attr('y', (r) => y(r.country)).attr('height', y.bandwidth()).attr('rx', 2).attr('fill', (r) => (r.rate > 0 ? GP.C.blue : GP.C.warm))
+    .on('mousemove', (ev, r) => t.show(ev, r.country, [[null, 'Yıllık hız', GP.F.permille(r.rate)]])).on('mouseleave', () => t.hide())
+    .on('click', (ev, r) => GP.openCountry(r.country)).style('cursor', 'pointer');
+  s.append('g').selectAll('text').data(rows).join('text').attr('x', lw - 8).attr('y', (r) => y(r.country) + y.bandwidth() / 2).attr('dy', '0.35em')
+    .attr('text-anchor', 'end').attr('font-size', 11).attr('fill', GP.C.ink).text((r) => r.country);
+  s.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 2).attr('y2', h - 24).attr('stroke', GP.C.muted);
+});
+</script>
+
+<script>
+// ---------- Ülke karşılaştırma ----------
+const gpOptions = (sel, current) => {
+  const names = GP.rows('ulkeler').map((u) => u.country).sort((a, b) => a.localeCompare(b, 'tr'));
+  if (sel.options.length !== names.length) sel.replaceChildren(...names.map((n) => new Option(n, n)));
+  sel.value = current;
+};
+dash.draw('ulke_sec', (sel) => {
+  if (dash.data('ulkeler').status !== 'ok') { sel.replaceChildren(); return; }
+  gpOptions(sel, dash.params().ulke ?? 'Turkey');
+  sel.onchange = () => dash.setParams({ ulke: sel.value });
+});
+dash.draw('cift_sec', (sel) => {
+  if (dash.data('ulkeler').status !== 'ok') { sel.replaceChildren(); return; }
+  const slot = sel.dataset.slot, p = dash.params();
+  gpOptions(sel, p[slot] ?? (slot === 'a' ? 'Turkey' : 'Germany'));
+  sel.onchange = () => dash.setParams({ [slot]: sel.value });
+});
+
+dash.draw('ulke_bar', (el) => {
+  const got = GP.need(el, ['ulke_serileri']);
+  if (!got) return;
+  const name = dash.params().ulke ?? 'Turkey', rows = got[0].filter((r) => r.country === name).sort((a, b) => a.year - b.year);
+  if (!rows.length) { el.replaceChildren(); return; }
+  const { s, w, h } = GP.svg(el, 300), t = GP.tip(el);
+  const y = d3.scaleLinear(d3.extent(rows.map((r) => r.net).concat([0])), [h - 26, 12]).nice();
+  const rates = rows.map((r) => r.rate).filter((v) => v != null);
+  const yr = d3.scaleLinear(d3.extent(rates.concat([0])), [h - 26, 12]).nice();
+  const ml = GP.measure(s, y.ticks(5).map(GP.F.scompact)) + 10, mr = rates.length ? GP.measure(s, yr.ticks(5).map((v) => GP.F.text(v) + '‰')) + 12 : 8;
+  const x = d3.scaleBand(rows.map((r) => r.year), [ml, w - mr]).padding(0.28);
+  GP.axis(s.append('g').attr('transform', `translate(${ml},0)`), d3.axisLeft(y).ticks(5).tickFormat(GP.F.scompact).tickSize(-(w - ml - mr))).call((g) => g.select('.domain').remove()).call((g) => g.selectAll('line').attr('stroke', GP.C.grid));
+  GP.axis(s.append('g').attr('transform', `translate(0,${h - 26})`), d3.axisBottom(x).tickFormat((v, i) => (w < 560 && i % 2 ? '' : GP.period(v)))).call((g) => g.select('.domain').remove());
+  if (rates.length) GP.axis(s.append('g').attr('transform', `translate(${w - mr},0)`), d3.axisRight(yr).ticks(5).tickFormat((v) => GP.F.text(v) + '‰').tickSize(0)).call((g) => g.select('.domain').remove());
+  s.append('g').selectAll('rect').data(rows).join('rect').attr('x', (r) => x(r.year)).attr('width', x.bandwidth())
+    .attr('y', (r) => Math.min(y(0), y(r.net))).attr('height', (r) => Math.abs(y(r.net) - y(0))).attr('rx', 2)
+    .attr('fill', (r) => (r.net > 0 ? '#a9c6ef' : '#f3c2ad'));
+  s.append('line').attr('x1', ml).attr('x2', w - mr).attr('y1', y(0)).attr('y2', y(0)).attr('stroke', GP.C.muted);
+  const pts = rows.filter((r) => r.rate != null);
+  s.append('path').datum(pts).attr('d', d3.line().x((r) => x(r.year) + x.bandwidth() / 2).y((r) => yr(r.rate)))
+    .attr('fill', 'none').attr('stroke', GP.C.deep).attr('stroke-width', 2).attr('stroke-linejoin', 'round');
+  s.append('g').selectAll('circle').data(pts).join('circle').attr('cx', (r) => x(r.year) + x.bandwidth() / 2).attr('cy', (r) => yr(r.rate)).attr('r', 3.5).attr('fill', GP.C.deep);
+  s.append('g').selectAll('rect').data(rows).join('rect').attr('x', (r) => x(r.year) - (x.step() - x.bandwidth()) / 2).attr('width', x.step()).attr('y', 0).attr('height', h).attr('fill', 'transparent')
+    .on('mousemove', (ev, r) => t.show(ev, `${r.country} · ${GP.period(r.year)}`, [
+      [r.net > 0 ? GP.C.blue : GP.C.warm, 'Net göç', GP.F.signed(r.net)],
+      [GP.C.deep, 'Yıllık hız', r.rate == null ? 'nüfus yok' : GP.F.permille(r.rate)],
+      [null, 'Nüfus', r.population == null ? '—' : GP.F.compact(r.population)]]))
+    .on('mouseleave', () => t.hide());
+});
+
+dash.draw('cift_kor', (el) => {
+  const d = dash.data('ulke_korelasyon');
+  if (d.status !== 'ok') { el.textContent = '—'; return; }
+  const p = dash.params(), [a, b] = [p.a ?? 'Turkey', p.b ?? 'Germany'].sort();
+  el.dataset.where = `a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}`;
+  el.dataset.field = 'r';
+  const row = d.data.find((r) => r.a === a && r.b === b);
+  el.textContent = row ? (row.r >= 0 ? '+' : '') + GP.F.dec2(row.r) : '—';
+});
+
+dash.draw('cift_isi', (el) => {
+  const got = GP.need(el, ['ulke_serileri']);
+  if (!got) return;
+  const p = dash.params(), names = [p.a ?? 'Turkey', p.b ?? 'Germany'];
+  const rows = got[0].filter((r) => names.includes(r.country));
+  const years = [...new Set(rows.map((r) => r.year))].sort((a, b) => a - b);
+  const { s, w, h } = GP.svg(el, 340), t = GP.tip(el);
+  const lw = GP.measure(s, names, 12) + 12;
+  const x = d3.scaleBand(years, [lw, w - 4]).padding(0.05);
+  const blocks = [
+    { title: 'Net göç (kişi, 5 yıllık dönem toplamı · B = bin, Mn = milyon)', top: 18, val: (r) => r.net, fmt: GP.F.short, tipFmt: GP.F.signed, unit: 'Net göç' },
+    { title: 'Yıllık net göç hızı (‰, nüfusa oranlı)', top: 188, val: (r) => r.rate, fmt: (v) => (v == null ? '—' : GP.F.permille(v).replace('‰', '')), tipFmt: (v) => (v == null ? 'nüfus yok' : GP.F.permille(v)), unit: 'Yıllık hız' },
+  ];
+  const showText = x.bandwidth() > 44;
+  for (const bl of blocks) {
+    const vals = rows.map(bl.val).filter((v) => v != null), lim = d3.max(vals, Math.abs) || 1;
+    const y = d3.scaleBand(names, [bl.top + 10, bl.top + 120]).padding(0.08);
+    s.append('text').attr('x', lw).attr('y', bl.top).attr('font-size', 12).attr('font-weight', 600).attr('fill', GP.C.deep).text(bl.title);
+    s.append('g').selectAll('rect').data(rows).join('rect').attr('x', (r) => x(r.year)).attr('y', (r) => y(r.country))
+      .attr('width', x.bandwidth()).attr('height', y.bandwidth()).attr('rx', 3)
+      .attr('fill', (r) => GP.diverge(bl.val(r), lim, false))
+      .on('mousemove', (ev, r) => t.show(ev, `${r.country} · ${GP.period(r.year)}`, [[null, bl.unit, bl.tipFmt(bl.val(r))]]))
+      .on('mouseleave', () => t.hide());
+    if (showText) s.append('g').selectAll('text').data(rows).join('text').attr('x', (r) => x(r.year) + x.bandwidth() / 2).attr('y', (r) => y(r.country) + y.bandwidth() / 2)
+      .attr('dy', '0.35em').attr('text-anchor', 'middle').attr('font-size', 10.5).attr('pointer-events', 'none')
+      .attr('fill', (r) => (Math.abs(bl.val(r) ?? 0) / lim > 0.55 ? '#ffffff' : GP.C.ink)).text((r) => bl.fmt(bl.val(r)));
+    s.append('g').selectAll('text').data(names).join('text').attr('x', lw - 8).attr('y', (n) => y(n) + y.bandwidth() / 2).attr('dy', '0.35em')
+      .attr('text-anchor', 'end').attr('font-size', 12).attr('fill', GP.C.ink).text((n) => n);
+  }
+  GP.axis(s.append('g').attr('transform', `translate(0,${h - 26})`), d3.axisBottom(x).tickFormat((v, i) => (x.bandwidth() < 46 && i % 2 ? '' : GP.period(v)))).call((g) => g.select('.domain').remove());
+});
+</script>

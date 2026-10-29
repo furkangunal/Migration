@@ -1,0 +1,15 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Editör / sistem
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Plotly çıktıları: her biri plotly.js'i gömdüğü için büyük (~79 MB), betiklerle yeniden üretilir.
+# prep.py'ın okuduğu sınıf CSV'leri repoda kalır.
+outputs/*.html

@@ -1,0 +1,193 @@
+country,iso3,total,cluster,rule_class,pos_periods,neg_periods,rate_20,class_20,rate_21,class_21
+Afghanistan,AFG,-3632313,Sürekli göç veren,Verenden alana dönen,3,8,-8.531,Göç veren,1.541,Göç alan
+Albania,ALB,-1143494,Sürekli göç veren,Sürekli göç veren,0,11,-6.024,Göç veren,-11.711,Göç veren
+Algeria,DZA,-2051506,Sürekli göç veren,Sürekli göç veren,0,11,-1.729,Göç veren,-1.363,Göç veren
+Angola,AGO,54524,Sürekli göç alan,Verenden alana dönen,6,5,-0.863,Stabil (±1‰),1.138,Göç alan
+Antigua and Barbuda,ATG,-19555,Sürekli göç veren,Sürekli göç veren,2,9,-7.473,Göç veren,-0.35,Stabil (±1‰)
+Argentina,ARG,417003,Alandan verene dönen,Alandan verene dönen,7,4,0.499,Stabil (±1‰),-0.241,Stabil (±1‰)
+Armenia,ARM,-794794,Alandan verene dönen,Alandan verene dönen,4,7,-4.372,Göç veren,-6.212,Göç veren
+Aruba,ABW,3499,Sürekli göç veren,Verenden alana dönen,4,7,-1.409,Göç veren,4.775,Göç alan
+Australia,AUS,6317633,Sürekli göç alan,Sürekli göç alan,11,0,6.118,Göç alan,8.662,Göç alan
+Austria,AUT,1054793,Sürekli göç alan,Sürekli göç alan,11,0,1.901,Göç alan,3.861,Göç alan
+Azerbaijan,AZE,-383812,Alandan verene dönen,Alandan verene dönen,4,7,-1.156,Göç veren,-0.785,Stabil (±1‰)
+"Bahamas, The",BHS,67222,Sürekli göç alan,Dalgalı,8,3,3.069,Göç alan,7.453,Göç alan
+Bahrain,BHR,601164,Sürekli göç alan,Sürekli göç alan,9,2,8.348,Göç alan,32.443,Göç alan
+Bangladesh,BGD,-14597904,Sürekli göç veren,Sürekli göç veren,0,11,-1.992,Göç veren,-3.393,Göç veren
+Barbados,BRB,-46910,Sürekli göç veren,Sürekli göç veren,2,9,-5.064,Göç veren,1.022,Göç alan
+Belarus,BLR,177190,Sürekli göç alan,Dalgalı,7,4,-0.002,Stabil (±1‰),1.234,Göç alan
+Belgium,BEL,1293181,Sürekli göç alan,Sürekli göç alan,11,0,1.299,Göç alan,4.895,Göç alan
+Belize,BLZ,-15307,Sürekli göç veren,Verenden alana dönen,4,7,-6.236,Göç veren,4.989,Göç alan
+Benin,BEN,102698,Sürekli göç veren,Verenden alana dönen,3,8,-0.216,Stabil (±1‰),1.027,Göç alan
+Bhutan,BTN,28453,Sürekli göç alan,Sürekli göç alan,10,1,-1.975,Göç veren,6.118,Göç alan
+Bolivia,BOL,-777800,Sürekli göç veren,Sürekli göç veren,0,11,-2.324,Göç veren,-1.62,Göç veren
+Bosnia and Herzegovina,BIH,-1258775,Sürekli göç veren,Sürekli göç veren,2,9,-8.138,Göç veren,0.606,Stabil (±1‰)
+Botswana,BWA,104973,Sürekli göç alan,Sürekli göç alan,9,2,1.167,Göç alan,2.082,Göç alan
+Brazil,BRA,15924,Sürekli göç alan,Dalgalı,1,0,0.0,Stabil (±1‰),0.006,Stabil (±1‰)
+Brunei Darussalam,BRN,41690,Sürekli göç alan,Sürekli göç alan,11,0,4.537,Göç alan,1.225,Göç alan
+Bulgaria,BGR,-1031683,Sürekli göç veren,Sürekli göç veren,0,11,-2.383,Göç veren,-1.904,Göç veren
+Burkina Faso,BFA,-1740708,Sürekli göç veren,Sürekli göç veren,0,11,-4.642,Göç veren,-1.679,Göç veren
+Burundi,BDI,-1022827,Sürekli göç veren,Verenden alana dönen,3,8,-7.509,Göç veren,2.524,Göç alan
+Cabo Verde,CPV,-163450,Sürekli göç veren,Sürekli göç veren,1,10,-8.941,Göç veren,-6.342,Göç veren
+Cambodia,KHM,-325109,Sürekli göç veren,Dalgalı,2,8,0.557,Stabil (±1‰),-2.311,Göç veren
+Cameroon,CMR,-531500,Sürekli göç veren,Sürekli göç veren,0,10,-0.82,Stabil (±1‰),-0.879,Stabil (±1‰)
+Canada,CAN,8140134,Sürekli göç alan,Sürekli göç alan,11,0,4.833,Göç alan,6.937,Göç alan
+Central African Republic,CAF,21868,Sürekli göç alan,Dalgalı,7,4,0.517,Stabil (±1‰),-0.459,Stabil (±1‰)
+Chad,TCD,47709,Sürekli göç alan,Verenden alana dönen,5,6,-1.74,Göç veren,2.329,Göç alan
+Channel Islands,CHI,42878,Sürekli göç alan,Sürekli göç alan,11,0,5.744,Göç alan,5.462,Göç alan
+Chile,CHL,360099,Sürekli göç alan,Verenden alana dönen,6,5,-0.161,Stabil (±1‰),1.736,Göç alan
+China,CHN,-10502146,Sürekli göç veren,Sürekli göç veren,0,11,-0.113,Stabil (±1‰),-0.311,Stabil (±1‰)
+Colombia,COL,-2500991,Sürekli göç veren,Sürekli göç veren,0,11,-1.949,Göç veren,-0.692,Stabil (±1‰)
+Comoros,COM,-57491,Sürekli göç veren,Sürekli göç veren,1,10,-2.009,Göç veren,-3.23,Göç veren
+"Congo, Dem. Rep.",COD,-64540,Alandan verene dönen,Alandan verene dönen,6,5,0.279,Stabil (±1‰),-0.402,Stabil (±1‰)
+"Congo, Rep.",COG,31495,Sürekli göç alan,Dalgalı,7,3,0.728,Stabil (±1‰),-0.387,Stabil (±1‰)
+Costa Rica,CRI,332606,Sürekli göç alan,Sürekli göç alan,11,0,2.449,Göç alan,1.399,Göç alan
+Cote d'Ivoire,CIV,2090000,Sürekli göç alan,Sürekli göç alan,9,2,7.409,Göç alan,-1.71,Göç veren
+Croatia,HRV,-295399,Alandan verene dönen,Alandan verene dönen,4,7,-1.389,Göç veren,-0.701,Stabil (±1‰)
+Cuba,CUB,-1852997,Sürekli göç veren,Sürekli göç veren,0,11,-3.726,Göç veren,-2.511,Göç veren
+Curacao,CUW,-67131,Sürekli göç veren,Sürekli göç veren,2,9,-14.208,Göç veren,7.054,Göç alan
+Cyprus,CYP,177954,Sürekli göç alan,Verenden alana dönen,7,4,1.293,Göç alan,8.759,Göç alan
+Czech Republic,CZE,272914,Sürekli göç alan,Sürekli göç alan,9,2,-0.137,Stabil (±1‰),2.118,Göç alan
+Denmark,DNK,475629,Sürekli göç alan,Sürekli göç alan,11,0,1.214,Göç alan,2.814,Göç alan
+Djibouti,DJI,183574,Alandan verene dönen,Alandan verene dönen,6,5,17.318,Göç alan,-4.104,Göç veren
+Dominican Republic,DOM,-1263792,Sürekli göç veren,Sürekli göç veren,0,11,-3.511,Göç veren,-3.237,Göç veren
+Ecuador,ECU,-350199,Sürekli göç veren,Sürekli göç veren,0,11,-0.447,Stabil (±1‰),-0.943,Stabil (±1‰)
+"Egypt, Arab Rep.",EGY,-3214642,Sürekli göç veren,Sürekli göç veren,0,11,-1.443,Göç veren,-0.444,Stabil (±1‰)
+El Salvador,SLV,-2242855,Sürekli göç veren,Sürekli göç veren,0,11,-7.881,Göç veren,-9.264,Göç veren
+Equatorial Guinea,GNQ,80000,Sürekli göç alan,Dalgalı,7,2,0.983,Stabil (±1‰),4.157,Göç alan
+Eritrea,ERI,-678007,Alandan verene dönen,Alandan verene dönen,6,5,-7.489,Göç veren,-5.139,Göç veren
+Estonia,EST,28440,Alandan verene dönen,Alandan verene dönen,6,5,1.297,Göç alan,-2.246,Göç veren
+Ethiopia,ETH,-20118,Sürekli göç veren,Dalgalı,3,8,0.114,Stabil (±1‰),-0.154,Stabil (±1‰)
+Fiji,FJI,-316161,Sürekli göç veren,Sürekli göç veren,1,10,-7.722,Göç veren,-8.931,Göç veren
+Finland,FIN,160895,Sürekli göç alan,Verenden alana dönen,8,3,-0.258,Stabil (±1‰),2.647,Göç alan
+France,FRA,5629054,Sürekli göç alan,Sürekli göç alan,11,0,1.86,Göç alan,1.621,Göç alan
+French Polynesia,PYF,13930,Alandan verene dönen,Alandan verene dönen,8,3,2.846,Göç alan,-0.987,Stabil (±1‰)
+Gabon,GAB,82291,Sürekli göç alan,Sürekli göç alan,11,0,1.841,Göç alan,1.016,Göç alan
+"Gambia, The",GMB,-11414,Alandan verene dönen,Alandan verene dönen,4,7,0.94,Stabil (±1‰),-1.533,Göç veren
+Georgia,GEO,-1944993,Sürekli göç veren,Sürekli göç veren,2,9,-6.026,Göç veren,-15.472,Göç veren
+Germany,DEU,9557855,Sürekli göç alan,Sürekli göç alan,11,0,2.641,Göç alan,1.046,Göç alan
+Ghana,GHA,-738145,Sürekli göç veren,Dalgalı,3,7,-2.143,Göç veren,0.857,Stabil (±1‰)
+Greece,GRC,1189035,Sürekli göç alan,Dalgalı,8,3,2.971,Göç alan,0.348,Stabil (±1‰)
+Grenada,GRD,-79384,Sürekli göç veren,Sürekli göç veren,0,11,-16.908,Göç veren,-7.645,Göç veren
+Guam,GUM,-29490,Sürekli göç veren,Dalgalı,3,7,-2.27,Göç veren,-7.828,Göç veren
+Guatemala,GTM,-1783503,Sürekli göç veren,Sürekli göç veren,0,11,-4.648,Göç veren,-2.205,Göç veren
+Guinea,GIN,-415136,Sürekli göç veren,Sürekli göç veren,2,9,0.086,Stabil (±1‰),-2.964,Göç veren
+Guinea-Bissau,GNB,-253230,Sürekli göç veren,Sürekli göç veren,0,11,-5.828,Göç veren,-2.96,Göç veren
+Guyana,GUY,-654945,Sürekli göç veren,Sürekli göç veren,1,10,-18.471,Göç veren,-10.598,Göç veren
+Haiti,HTI,-1269001,Sürekli göç veren,Sürekli göç veren,0,11,-3.675,Göç veren,-3.052,Göç veren
+Honduras,HND,-889001,Sürekli göç veren,Sürekli göç veren,1,10,-3.618,Göç veren,-2.81,Göç veren
+"Hong Kong SAR, China",HKG,1617925,Sürekli göç alan,Sürekli göç alan,9,2,7.535,Göç alan,1.475,Göç alan
+Hungary,HUN,187463,Sürekli göç alan,Verenden alana dönen,7,4,-0.011,Stabil (±1‰),1.274,Göç alan
+Iceland,ISL,4924,Sürekli göç alan,Verenden alana dönen,5,6,-0.727,Stabil (±1‰),2.513,Göç alan
+India,IND,-5580661,Alandan verene dönen,Alandan verene dönen,4,7,0.073,Stabil (±1‰),-0.428,Stabil (±1‰)
+Indonesia,IDN,-4052247,Sürekli göç veren,Sürekli göç veren,0,11,-0.233,Stabil (±1‰),-0.75,Stabil (±1‰)
+"Iran, Islamic Rep.",IRN,1275058,Alandan verene dönen,Alandan verene dönen,6,5,1.296,Göç alan,-0.829,Stabil (±1‰)
+Iraq,IRQ,-1242111,Sürekli göç veren,Sürekli göç veren,1,10,-1.934,Göç veren,-0.397,Stabil (±1‰)
+Ireland,IRL,94713,Sürekli göç alan,Verenden alana dönen,5,6,-1.242,Göç veren,3.992,Göç alan
+Israel,ISR,1675970,Sürekli göç alan,Sürekli göç alan,11,0,8.216,Göç alan,3.657,Göç alan
+Italy,ITA,3512905,Sürekli göç alan,Dalgalı,8,3,0.161,Stabil (±1‰),3.589,Göç alan
+Jamaica,JAM,-1254795,Sürekli göç veren,Sürekli göç veren,0,11,-11.409,Göç veren,-6.989,Göç veren
+Japan,JPN,3059155,Sürekli göç alan,Sürekli göç alan,10,1,0.362,Stabil (±1‰),0.74,Stabil (±1‰)
+Jordan,JOR,1178386,Sürekli göç alan,Dalgalı,7,4,5.756,Göç alan,5.848,Göç alan
+Kazakhstan,KAZ,-3226005,Sürekli göç veren,Dalgalı,4,7,-5.938,Göç veren,0.687,Stabil (±1‰)
+Kenya,KEN,-65555,Sürekli göç veren,Dalgalı,4,7,0.22,Stabil (±1‰),-0.374,Stabil (±1‰)
+Kiribati,KIR,-22769,Sürekli göç veren,Sürekli göç veren,0,11,-6.942,Göç veren,-3.096,Göç veren
+"Korea, Dem. People’s Rep.",PRK,0,Alandan verene dönen,Dalgalı,0,0,0.0,Stabil (±1‰),0.0,Stabil (±1‰)
+"Korea, Rep.",KOR,-525788,Sürekli göç alan,Verenden alana dönen,5,6,-0.982,Stabil (±1‰),1.274,Göç alan
+Kuwait,KWT,1415764,Sürekli göç alan,Sürekli göç alan,10,1,4.594,Göç alan,29.817,Göç alan
+Kyrgyz Republic,KGZ,-548948,Alandan verene dönen,Alandan verene dönen,4,7,-1.293,Göç veren,-4.569,Göç veren
+Lao PDR,LAO,-820514,Alandan verene dönen,Alandan verene dönen,4,7,-2.955,Göç veren,-4.514,Göç veren
+Latvia,LVA,-93383,Alandan verene dönen,Alandan verene dönen,6,5,1.522,Göç alan,-7.404,Göç veren
+Lebanon,LBN,1271629,Sürekli göç alan,Verenden alana dönen,5,6,-6.011,Göç veren,27.277,Göç alan
+Lesotho,LSO,-366109,Sürekli göç veren,Sürekli göç veren,0,11,-5.158,Göç veren,-2.638,Göç veren
+Liberia,LBR,-102461,Alandan verene dönen,Alandan verene dönen,6,4,-2.817,Göç veren,1.896,Göç alan
+Libya,LBY,-253716,Alandan verene dönen,Alandan verene dönen,8,3,2.609,Göç alan,-6.693,Göç veren
+Lithuania,LTU,-398094,Alandan verene dönen,Alandan verene dönen,6,5,-0.024,Stabil (±1‰),-8.174,Göç veren
+Luxembourg,LUX,202394,Sürekli göç alan,Sürekli göç alan,11,0,6.659,Göç alan,14.475,Göç alan
+"Macao SAR, China",MAC,273264,Sürekli göç alan,Sürekli göç alan,9,2,13.423,Göç alan,15.871,Göç alan
+"Macedonia, FYR",MKD,-481009,Sürekli göç veren,Sürekli göç veren,0,11,-6.214,Göç veren,-0.852,Stabil (±1‰)
+Madagascar,MDG,-101000,Sürekli göç veren,Sürekli göç veren,0,10,-0.229,Stabil (±1‰),-0.049,Stabil (±1‰)
+Malawi,MWI,-364320,Sürekli göç veren,Sürekli göç veren,1,10,-0.959,Stabil (±1‰),-0.504,Stabil (±1‰)
+Malaysia,MYS,2906761,Sürekli göç alan,Verenden alana dönen,8,3,2.369,Göç alan,3.945,Göç alan
+Maldives,MDV,-8058,Alandan verene dönen,Dalgalı,1,8,-1.141,Göç veren,-0.042,Stabil (±1‰)
+Mali,MLI,-1923598,Sürekli göç veren,Sürekli göç veren,0,11,-4.698,Göç veren,-2.153,Göç veren
+Malta,MLT,-16725,Sürekli göç alan,Verenden alana dönen,7,4,-3.171,Göç veren,4.177,Göç alan
+Mauritania,MRT,-81430,Sürekli göç veren,Sürekli göç veren,2,9,-1.165,Göç veren,-0.212,Stabil (±1‰)
+Mauritius,MUS,-204634,Sürekli göç veren,Sürekli göç veren,0,10,-4.607,Göç veren,-1.7,Göç veren
+Mexico,MEX,-13119785,Sürekli göç veren,Sürekli göç veren,0,11,-3.525,Göç veren,-2.307,Göç veren
+"Micronesia, Fed. Sts.",FSM,-60032,Sürekli göç veren,Dalgalı,0,8,-8.58,Göç veren,-20.092,Göç veren
+Moldova,MDA,-255748,Alandan verene dönen,Alandan verene dönen,3,8,-1.757,Göç veren,-1.608,Göç veren
+Mongolia,MNG,-185898,Alandan verene dönen,Dalgalı,0,5,-2.095,Göç veren,-1.141,Göç veren
+Montenegro,MNE,-152498,Sürekli göç veren,Sürekli göç veren,0,11,-6.152,Göç veren,-1.464,Göç veren
+Morocco,MAR,-4858278,Sürekli göç veren,Sürekli göç veren,0,11,-4.194,Göç veren,-3.378,Göç veren
+Mozambique,MOZ,-1093989,Sürekli göç veren,Dalgalı,3,8,-2.379,Göç veren,-0.116,Stabil (±1‰)
+Myanmar,MMR,-4806412,Sürekli göç veren,Dalgalı,0,7,-1.126,Göç veren,-4.596,Göç veren
+Namibia,NAM,-45010,Sürekli göç veren,Dalgalı,3,7,1.346,Göç alan,-3.322,Göç veren
+Nepal,NPL,-3163177,Sürekli göç veren,Sürekli göç veren,1,10,-1.318,Göç veren,-5.823,Göç veren
+Netherlands,NLD,1323709,Sürekli göç alan,Sürekli göç alan,11,0,1.82,Göç alan,1.259,Göç alan
+New Caledonia,NCL,33077,Sürekli göç alan,Sürekli göç alan,9,2,3.167,Göç alan,3.887,Göç alan
+New Zealand,NZL,394592,Sürekli göç alan,Verenden alana dönen,7,4,1.524,Göç alan,3.248,Göç alan
+Nicaragua,NIC,-1118002,Sürekli göç veren,Sürekli göç veren,0,11,-5.002,Göç veren,-5.608,Göç veren
+Niger,NER,-303968,Sürekli göç veren,Sürekli göç veren,1,10,-0.844,Stabil (±1‰),-0.38,Stabil (±1‰)
+Nigeria,NGA,-950046,Sürekli göç veren,Sürekli göç veren,2,9,-0.059,Stabil (±1‰),-0.333,Stabil (±1‰)
+Norway,NOR,707856,Sürekli göç alan,Sürekli göç alan,10,1,1.425,Göç alan,6.688,Göç alan
+Oman,OMN,1502313,Sürekli göç alan,Dalgalı,8,3,1.381,Göç alan,33.993,Göç alan
+Pakistan,PAK,-3388461,Alandan verene dönen,Dalgalı,3,8,-0.032,Stabil (±1‰),-1.179,Göç veren
+Panama,PAN,5135,Sürekli göç alan,Verenden alana dönen,5,6,-0.778,Stabil (±1‰),1.287,Göç alan
+Papua New Guinea,PNG,-16919,Sürekli göç veren,Dalgalı,1,3,-0.13,Stabil (±1‰),0.0,Stabil (±1‰)
+Paraguay,PRY,-605845,Sürekli göç veren,Sürekli göç veren,0,11,-2.782,Göç veren,-3.002,Göç veren
+Peru,PER,-2768997,Sürekli göç veren,Sürekli göç veren,0,11,-1.997,Göç veren,-3.198,Göç veren
+Philippines,PHL,-6195183,Sürekli göç veren,Sürekli göç veren,1,10,-1.295,Göç veren,-2.644,Göç veren
+Poland,POL,-1486643,Sürekli göç veren,Sürekli göç veren,2,9,-1.037,Göç veren,-0.053,Stabil (±1‰)
+Portugal,PRT,-669331,Sürekli göç alan,Verenden alana dönen,6,5,-2.198,Göç veren,1.051,Göç alan
+Puerto Rico,PRI,-808094,Sürekli göç veren,Sürekli göç veren,0,11,-3.358,Göç veren,-6.874,Göç veren
+Qatar,QAT,1683615,Sürekli göç alan,Sürekli göç alan,10,1,25.145,Göç alan,77.078,Göç alan
+Romania,ROU,-3438082,Sürekli göç veren,Sürekli göç veren,0,11,-1.909,Göç veren,-5.751,Göç veren
+Russian Federation,RUS,10256659,Sürekli göç alan,Verenden alana dönen,8,3,0.952,Stabil (±1‰),2.322,Göç alan
+Rwanda,RWA,-540339,Sürekli göç veren,Dalgalı,3,8,-1.45,Göç veren,-1.547,Göç veren
+Samoa,WSM,-148266,Sürekli göç veren,Sürekli göç veren,0,11,-16.869,Göç veren,-15.371,Göç veren
+Sao Tome and Principe,STP,-56313,Sürekli göç veren,Sürekli göç veren,0,11,-9.894,Göç veren,-6.599,Göç veren
+Saudi Arabia,SAU,6428259,Sürekli göç alan,Sürekli göç alan,10,1,13.449,Göç alan,7.856,Göç alan
+Senegal,SEN,-775122,Alandan verene dönen,Alandan verene dönen,3,8,-1.476,Göç veren,-2.347,Göç veren
+Seychelles,SYC,-9872,Sürekli göç veren,Dalgalı,3,8,-3.946,Göç veren,-0.116,Stabil (±1‰)
+Sierra Leone,SLE,1745,Alandan verene dönen,Dalgalı,3,3,-4.061,Göç veren,6.241,Göç alan
+Singapore,SGP,2064778,Sürekli göç alan,Sürekli göç alan,10,1,7.573,Göç alan,18.225,Göç alan
+Slovak Republic,SVK,-185381,Sürekli göç veren,Verenden alana dönen,3,8,-1.01,Göç veren,0.148,Stabil (±1‰)
+Slovenia,SVN,169563,Sürekli göç alan,Dalgalı,8,3,1.362,Göç alan,2.272,Göç alan
+Solomon Islands,SLB,-25307,Alandan verene dönen,Alandan verene dönen,4,7,0.331,Stabil (±1‰),-3.743,Göç veren
+Somalia,SOM,-1819698,Alandan verene dönen,Sürekli göç veren,2,9,-4.097,Göç veren,-5.7,Göç veren
+South Africa,ZAF,4701005,Sürekli göç alan,Sürekli göç alan,10,1,1.325,Göç alan,4.037,Göç alan
+South Sudan,SSD,1236000,Sürekli göç alan,Dalgalı,7,2,-5.005,Göç veren,16.176,Göç alan
+Spain,ESP,5424639,Sürekli göç alan,Verenden alana dönen,6,5,0.646,Stabil (±1‰),6.724,Göç alan
+Sri Lanka,LKA,-3173221,Sürekli göç veren,Sürekli göç veren,0,11,-2.999,Göç veren,-4.732,Göç veren
+St. Lucia,LCA,-51144,Sürekli göç veren,Sürekli göç veren,2,9,-11.156,Göç veren,1.061,Göç alan
+St. Vincent and the Grenadines,VCT,-81789,Sürekli göç veren,Sürekli göç veren,0,11,-16.177,Göç veren,-9.185,Göç veren
+Sudan,SDN,-300000,Alandan verene dönen,Alandan verene dönen,5,4,2.118,Göç alan,-3.498,Göç veren
+Suriname,SUR,-197261,Sürekli göç veren,Sürekli göç veren,0,11,-10.79,Göç veren,-4.127,Göç veren
+Swaziland,SWZ,-142391,Sürekli göç veren,Sürekli göç veren,1,10,-3.288,Göç veren,-3.548,Göç veren
+Sweden,SWE,1374796,Sürekli göç alan,Sürekli göç alan,11,0,2.114,Göç alan,4.906,Göç alan
+Switzerland,CHE,1696764,Sürekli göç alan,Sürekli göç alan,10,1,3.072,Göç alan,8.0,Göç alan
+Syrian Arab Republic,SYR,-4748581,Sürekli göç veren,Sürekli göç veren,1,10,-1.879,Göç veren,-13.221,Göç veren
+Tajikistan,TJK,-817663,Alandan verene dönen,Alandan verene dönen,3,8,-3.297,Göç veren,-2.57,Göç veren
+Tanzania,TZA,-110708,Alandan verene dönen,Alandan verene dönen,6,5,0.824,Stabil (±1‰),-1.219,Göç veren
+Thailand,THA,1777987,Sürekli göç alan,Dalgalı,7,2,0.798,Stabil (±1‰),0.343,Stabil (±1‰)
+Timor-Leste,TLS,-399738,Alandan verene dönen,Alandan verene dönen,5,6,-9.233,Göç veren,-10.264,Göç veren
+Togo,TGO,-213945,Sürekli göç veren,Sürekli göç veren,2,9,-1.583,Göç veren,-0.344,Stabil (±1‰)
+Tonga,TON,-86198,Sürekli göç veren,Sürekli göç veren,1,10,-16.91,Göç veren,-15.345,Göç veren
+Trinidad and Tobago,TTO,-353043,Sürekli göç veren,Sürekli göç veren,0,11,-7.293,Göç veren,-1.484,Göç veren
+Tunisia,TUN,-374960,Sürekli göç veren,Dalgalı,3,8,-0.636,Stabil (±1‰),-1.304,Göç veren
+Turkey,TUR,10676,Sürekli göç veren,Sürekli göç veren,1,10,-1.005,Göç veren,1.742,Göç alan
+Turkmenistan,TKM,-152049,Alandan verene dönen,Alandan verene dönen,5,6,0.379,Stabil (±1‰),-2.484,Göç veren
+Uganda,UGA,-326376,Alandan verene dönen,Dalgalı,4,7,-0.065,Stabil (±1‰),-0.648,Stabil (±1‰)
+Ukraine,UKR,1102026,Sürekli göç alan,Dalgalı,8,2,0.427,Stabil (±1‰),0.373,Stabil (±1‰)
+United Arab Emirates,ARE,7053937,Sürekli göç alan,Sürekli göç alan,11,0,43.462,Göç alan,59.837,Göç alan
+United Kingdom,GBR,4301237,Sürekli göç alan,Sürekli göç alan,9,2,0.404,Stabil (±1‰),3.679,Göç alan
+United States,USA,44621060,Sürekli göç alan,Sürekli göç alan,11,0,3.233,Göç alan,3.372,Göç alan
+Uruguay,URY,-526000,Sürekli göç veren,Sürekli göç veren,0,11,-2.917,Göç veren,-3.714,Göç veren
+Uzbekistan,UZB,-852498,Alandan verene dönen,Alandan verene dönen,4,7,0.13,Stabil (±1‰),-2.288,Göç veren
+Vanuatu,VUT,-11014,Alandan verene dönen,Alandan verene dönen,5,6,-2.624,Göç veren,0.371,Stabil (±1‰)
+"Venezuela, RB",VEN,-81501,Alandan verene dönen,Alandan verene dönen,6,5,0.038,Stabil (±1‰),-0.255,Stabil (±1‰)
+Vietnam,VNM,-3930648,Sürekli göç veren,Dalgalı,0,8,-0.98,Stabil (±1‰),-1.469,Göç veren
+Virgin Islands (U.S.),VIR,-13386,Alandan verene dönen,Alandan verene dönen,4,7,0.503,Stabil (±1‰),-9.271,Göç veren
+"Yemen, Rep.",YEM,-450862,Sürekli göç veren,Sürekli göç veren,1,9,-0.717,Stabil (±1‰),-0.408,Stabil (±1‰)
+Zambia,ZMB,-91260,Alandan verene dönen,Alandan verene dönen,6,5,0.669,Stabil (±1‰),-1.32,Göç veren
+Zimbabwe,ZWE,-1222773,Sürekli göç veren,Sürekli göç veren,2,9,-1.0,Stabil (±1‰),-4.769,Göç veren
