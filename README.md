@@ -59,26 +59,6 @@ The `presentations/` folder holds the slide decks for this project as PDFs: *Mig
     └── dashboard_en.html           standalone dashboard, English
 ```
 
-### Reproducing
-
-```bash
-python -m venv .venv
-.venv\Scripts\activate            # macOS/Linux: source .venv/bin/activate
-pip install -r requirements.txt
-
-python fetch_population.py        # optional: population.csv is already in the repo
-python main.py
-python clustering.py              # → outputs/ulke_kumeleri.csv
-python rule_based.py              # → outputs/ulke_kural_siniflari.csv
-python turkiye_almanya.py
-python dashboard/prep.py          # → dashboard/data/
-python dashboard/build_standalone.py   # → dashboard/dashboard.html, dashboard/dashboard_en.html
-```
-
-The analysis scripts write detailed Plotly charts to `outputs/` as HTML files.
-
----
-
 ## Türkçe
 
 Dünya Bankası'nın ülke bazında net göç tahminleri (5 yıllık dönemler, 1962–2012) üzerine keşifsel analiz. Proje iki sınıflandırma yöntemi (k-means ve kural tabanlı) ve etkileşimli bir dashboard içeriyor.
@@ -130,19 +110,6 @@ Bir sekmeye doğrudan bağlantı verilebilir, örneğin `dashboard.html#ulkeler`
     └── dashboard_en.html           tek başına çalışan panel, İngilizce
 ```
 
-### Yeniden üretmek
-
-```bash
-python -m venv .venv
-.venv\Scripts\activate            # macOS/Linux: source .venv/bin/activate
-pip install -r requirements.txt
-
-python fetch_population.py        # isteğe bağlı: population.csv zaten repoda
-python main.py
-python clustering.py              # → outputs/ulke_kumeleri.csv
-python rule_based.py              # → outputs/ulke_kural_siniflari.csv
-python turkiye_almanya.py
-python dashboard/prep.py          # → dashboard/data/
 python dashboard/build_standalone.py   # → dashboard/dashboard.html, dashboard/dashboard_en.html
 ```
 
