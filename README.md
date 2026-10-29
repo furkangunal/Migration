@@ -25,8 +25,6 @@ The dashboard comes in two languages: `dashboard/dashboard_en.html` (English) an
 | 20th vs 21st century | Comparison of annual net migration rates (‰, population-adjusted) |
 | Country comparison | Single-country profile and a two-country heatmap (e.g. Türkiye–Germany, USA–Mexico) |
 
-You can link to a tab directly, for example `dashboard_en.html#ulkeler`.
-
 ### Presentations
 
 The `presentations/` folder holds the slide decks for this project as PDFs: *Migration and History 1962–2012* (English) and *Göç ve Tarih 1962–2012* (Turkish).
@@ -75,8 +73,6 @@ Panel iki dilde: `dashboard/dashboard.html` (Türkçe) ve `dashboard/dashboard_e
 | Kural tabanlı sınıflar | Beş göç rejimi (sürekli alan/veren, dönen, dalgalı), sınıf haritası, k-means ile çapraz tablo |
 | 20. ve 21. yüzyıl | Nüfusa oranlı yıllık net göç hızı (‰) ile iki dönemin karşılaştırması |
 | Ülke karşılaştırma | Tek ülke profili ve iki ülkenin dönem dönem ısı haritası (ör. Türkiye–Almanya, ABD–Meksika) |
-
-Bir sekmeye doğrudan bağlantı verilebilir, örneğin `dashboard.html#ulkeler`.
 
 ### Sunumlar
 
