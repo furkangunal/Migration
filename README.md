@@ -61,7 +61,7 @@ The `presentations/` folder holds the slide decks for this project as PDFs: *Mig
 
 ## Türkçe
 
-Dünya Bankası'nın ülke bazında net göç tahminleri (5 yıllık dönemler, 1962–2012) üzerine keşifsel analiz. Proje iki sınıflandırma yöntemi (k-means ve kural tabanlı) ve etkileşimli bir dashboard içeriyor.
+Dünya Bankası'nın ülke bazında net göç tahminleri (5 yıllık dönemler, 1960–2015) üzerine keşifsel analiz. Proje iki sınıflandırma yöntemi (k-means ve kural tabanlı) ve etkileşimli bir dashboard içeriyor.
 
 ### Dashboard
 
