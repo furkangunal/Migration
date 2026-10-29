@@ -2,7 +2,9 @@
 
 [English](#english) · [Türkçe](#türkçe)
 
-**[▶ Open the dashboard / Paneli aç](https://furkangunal.github.io/Migration/dashboard/dashboard.html)**
+**[▶ Open the dashboard (English)](https://furkangunal.github.io/Migration/dashboard/dashboard_en.html)** · **[▶ Paneli aç (Türkçe)](https://furkangunal.github.io/Migration/dashboard/dashboard.html)**
+
+**Presentations / Sunumlar:** [Migration and History 1962–2012 (EN, PDF)](presentations/Migration%20and%20History%201962%E2%80%932012.pdf) · [Göç ve Tarih 1962–2012 (TR, PDF)](presentations/G%C3%B6%C3%A7%20ve%20Tarih%201962%E2%80%932012.pdf)
 
 ---
 
@@ -12,18 +14,22 @@ Exploratory analysis of World Bank net migration estimates by country (5-year pe
 
 ### Dashboard
 
-`dashboard/dashboard.html` is a self-contained file: the data is embedded and no server is needed. You can also download the repo and double-click the file. An internet connection is required because the charting library (d3) loads from a CDN. The dashboard text is in Turkish.
+The dashboard comes in two languages: `dashboard/dashboard_en.html` (English) and `dashboard/dashboard.html` (Turkish). Use the **TR | EN** switch in the header to change language; the open tab is kept. Both are self-contained files: the data is embedded and no server is needed. You can also download the repo and double-click a file. An internet connection is required because the charting library (d3) loads from a CDN.
 
 | Tab | Contents |
 |---|---|
-| Genel bakış (Overview) | Animated net migration map by period, regional series, top 10 receiving/sending countries |
-| Dağılım ve istatistik (Distribution) | Histogram, box plots by period, correlation between periods, summary statistics |
-| K-means kümeleme (Clustering) | Choosing k (silhouette), cluster profiles, cluster map |
-| Kural tabanlı sınıflar (Rule-based) | Five migration regimes (steady receiving/sending, reversing, fluctuating), class map, crosstab with k-means |
-| 20. ve 21. yüzyıl (20th vs 21st century) | Comparison of annual net migration rates (‰, population-adjusted) |
-| Ülke karşılaştırma (Country comparison) | Single-country profile and a two-country heatmap (e.g. Türkiye–Germany, USA–Mexico) |
+| Overview | Animated net migration map by period, regional series, top 10 receiving/sending countries |
+| Distribution & statistics | Histogram, box plots by period, correlation between periods, summary statistics |
+| K-means clustering | Choosing k (silhouette), cluster profiles, cluster map |
+| Rule-based classes | Five migration regimes (steady receiver/sender, reversing, fluctuating), class map, crosstab with k-means |
+| 20th vs 21st century | Comparison of annual net migration rates (‰, population-adjusted) |
+| Country comparison | Single-country profile and a two-country heatmap (e.g. Türkiye–Germany, USA–Mexico) |
 
-You can link to a tab directly, for example `dashboard.html#ulkeler`.
+You can link to a tab directly, for example `dashboard_en.html#ulkeler`.
+
+### Presentations
+
+The `presentations/` folder holds the slide decks for this project as PDFs: *Migration and History 1962–2012* (English) and *Göç ve Tarih 1962–2012* (Turkish).
 
 ### Data
 
@@ -42,12 +48,15 @@ You can link to a tab directly, for example `dashboard.html#ulkeler`.
 ├── rule_based.py                   rule-based migration regime classification
 ├── turkiye_almanya.py              two-country heatmaps
 ├── outputs/                        class CSVs (+ Plotly HTML charts, not in the repo)
+├── presentations/                  slide decks (PDF, English and Turkish)
 └── dashboard/
     ├── prep.py                     builds the dashboard datasets → dashboard/data/
     ├── index.html                  dashboard page (claude.ai Dashboard format)
     ├── dash_shim.js                standalone stand-in for the runtime the page expects
-    ├── build_standalone.py         index.html + data/ → single-file dashboard.html
-    └── dashboard.html              the published standalone dashboard
+    ├── i18n_en.py                  Turkish → English translations
+    ├── build_standalone.py         index.html + data/ → dashboard.html (TR) and dashboard_en.html (EN)
+    ├── dashboard.html              standalone dashboard, Turkish
+    └── dashboard_en.html           standalone dashboard, English
 ```
 
 ### Reproducing
@@ -63,7 +72,7 @@ python clustering.py              # → outputs/ulke_kumeleri.csv
 python rule_based.py              # → outputs/ulke_kural_siniflari.csv
 python turkiye_almanya.py
 python dashboard/prep.py          # → dashboard/data/
-python dashboard/build_standalone.py   # → dashboard/dashboard.html
+python dashboard/build_standalone.py   # → dashboard/dashboard.html, dashboard/dashboard_en.html
 ```
 
 The analysis scripts write detailed Plotly charts to `outputs/` as HTML files.
@@ -76,7 +85,7 @@ Dünya Bankası'nın ülke bazında net göç tahminleri (5 yıllık dönemler, 
 
 ### Dashboard
 
-`dashboard/dashboard.html` tek başına çalışan bir dosyadır. Veriler içine gömülüdür, sunucu gerekmez. Repoyu indirip dosyaya çift tıklamak da yeterlidir. Grafik kütüphanesi d3 CDN'den yüklendiği için internet bağlantısı gerekir.
+Panel iki dilde: `dashboard/dashboard.html` (Türkçe) ve `dashboard/dashboard_en.html` (İngilizce). Başlıktaki **TR | EN** düğmesiyle dil değiştirilir, açık sekme korunur. İkisi de tek başına çalışan dosyalardır. Veriler içine gömülüdür, sunucu gerekmez. Repoyu indirip dosyaya çift tıklamak da yeterlidir. Grafik kütüphanesi d3 CDN'den yüklendiği için internet bağlantısı gerekir.
 
 | Sekme | İçerik |
 |---|---|
@@ -88,6 +97,10 @@ Dünya Bankası'nın ülke bazında net göç tahminleri (5 yıllık dönemler, 
 | Ülke karşılaştırma | Tek ülke profili ve iki ülkenin dönem dönem ısı haritası (ör. Türkiye–Almanya, ABD–Meksika) |
 
 Bir sekmeye doğrudan bağlantı verilebilir, örneğin `dashboard.html#ulkeler`.
+
+### Sunumlar
+
+`presentations/` klasöründe projenin sunumları PDF olarak bulunur: *Göç ve Tarih 1962–2012* (Türkçe) ve *Migration and History 1962–2012* (İngilizce).
 
 ### Veri
 
@@ -106,12 +119,15 @@ Bir sekmeye doğrudan bağlantı verilebilir, örneğin `dashboard.html#ulkeler`
 ├── rule_based.py                   kural tabanlı göç rejimi sınıflandırması
 ├── turkiye_almanya.py              ikili ülke ısı haritaları
 ├── outputs/                        sınıf CSV'leri (+ Plotly HTML grafikleri, repoda yok)
+├── presentations/                  sunumlar (PDF, Türkçe ve İngilizce)
 └── dashboard/
     ├── prep.py                     dashboard veri setlerini üretir → dashboard/data/
     ├── index.html                  dashboard sayfası (claude.ai Dashboard biçiminde)
     ├── dash_shim.js                sayfanın beklediği çalışma ortamının bağımsız karşılığı
-    ├── build_standalone.py         index.html + data/ → tek dosyalık dashboard.html
-    └── dashboard.html              yayınlanan, tek başına çalışan panel
+    ├── i18n_en.py                  Türkçe → İngilizce çeviriler
+    ├── build_standalone.py         index.html + data/ → dashboard.html (TR) ve dashboard_en.html (EN)
+    ├── dashboard.html              tek başına çalışan panel, Türkçe
+    └── dashboard_en.html           tek başına çalışan panel, İngilizce
 ```
 
 ### Yeniden üretmek
@@ -127,7 +143,7 @@ python clustering.py              # → outputs/ulke_kumeleri.csv
 python rule_based.py              # → outputs/ulke_kural_siniflari.csv
 python turkiye_almanya.py
 python dashboard/prep.py          # → dashboard/data/
-python dashboard/build_standalone.py   # → dashboard/dashboard.html
+python dashboard/build_standalone.py   # → dashboard/dashboard.html, dashboard/dashboard_en.html
 ```
 
 Analiz betikleri ayrıntılı Plotly grafiklerini `outputs/` klasörüne HTML olarak yazar.
