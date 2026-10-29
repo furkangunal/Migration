@@ -109,8 +109,3 @@ Bir sekmeye doğrudan bağlantı verilebilir, örneğin `dashboard.html#ulkeler`
     ├── dashboard.html              tek başına çalışan panel, Türkçe
     └── dashboard_en.html           tek başına çalışan panel, İngilizce
 ```
-
-python dashboard/build_standalone.py   # → dashboard/dashboard.html, dashboard/dashboard_en.html
-```
-
-Analiz betikleri ayrıntılı Plotly grafiklerini `outputs/` klasörüne HTML olarak yazar.
